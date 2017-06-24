@@ -25,7 +25,7 @@
                     <i class="icon-list"></i>
                 </a>
                 
-                <a href="@Url.Action("Home", "Home")" class="navbar-brand text-lt">
+                <a href="@Url.Action("Index", "Home", new { id="A001"})" class="navbar-brand text-lt">
                     <i class="icon-earphones"></i> <span class="hidden-nav-xs m-l-sm">
                         My Music
                     </span>
@@ -82,7 +82,12 @@
                                 <nav class="nav-primary hidden-xs">
 
                                     <ul class="nav bg clearfix">
-                                        
+
+                                        <li>
+                                            <a href="@Url.Action("Index", "Home", new { id="V001"})">
+                                                <i class="icon-social-youtube icon text-primary"></i> <span class="font-bold">Video</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="@Url.Action("Genre", "Home", new { id=-1})">
                                                 <i class="icon-music-tone-alt icon text-info"></i> <span class="font-bold">Genre</span>
@@ -102,12 +107,7 @@
                                                     <i class="icon-list icon text-info-dker"></i> <span class="font-bold">Favorite</span>
                                                 </a>
                                             </li>                                      
-                                                                               
-                                        <li>
-                                            <a href="@Url.Action("Video", "Home")">
-                                                <i class="icon-social-youtube icon text-primary"></i> <span class="font-bold">Video</span>
-                                            </a>
-                                        </li>
+                                                                   
                                         <li class="m-b hidden-nav-xs"></li>
                                     </ul>
                                 </nav>

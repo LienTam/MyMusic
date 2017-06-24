@@ -756,7 +756,7 @@
     <Content Include="Content\less\app.utilities.less" />
     <Content Include="Content\less\app.variables.less" />
     <Content Include="Content\less\app.widgets.less" />
-    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -766,9 +766,7 @@
     <Content Include="Views\Home\Genre.cshtml" />
     <Content Include="Views\Home\Singer.cshtml" />
     <Content Include="Views\Home\Listen.cshtml" />
-    <Content Include="Views\Home\Video.cshtml" />
-    <Content Include="Views\Home\Video_detail.cshtml" />
-    <Content Include="Views\Home\Audio_detail.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\Sesult_search.cshtml" />
     <None Include="Web.Debug.config">

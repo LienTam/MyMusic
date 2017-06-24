@@ -16,12 +16,12 @@ namespace MyMusic
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = "A001" }
             );
             routes.MapRoute(
-            "Audio_detail",                                              // Route name
+            "Detail",                                              // Route name
             "{controller}/{action}/{idAudio}",                           // URL with parameters
-            new { controller = "Home", action = "Audio_detail", idAudio = UrlParameter.Optional }  // Parameter defaults
+            new { controller = "Home", action = "Detail", id = UrlParameter.Optional }  // Parameter defaults
         );
         }
         

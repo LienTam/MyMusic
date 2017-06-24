@@ -18,6 +18,10 @@ namespace MyMusic.DAO
         {
             return db.Genres.ToList();
         }
-        
+        public List<Singer> getAllSigner()
+        {
+            return db.Singers.ToList();
+        }
+
     }
 }

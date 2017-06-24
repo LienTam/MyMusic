@@ -10,37 +10,41 @@ namespace MyMusic.Controllers
         PostDAO pd = new PostDAO();
         ModelDAO md = new ModelDAO();
         SingerDAO sd = new SingerDAO();
-        public const int ALLSINGER = -1, ALLGENRE = -1;
-         // GET: /Home/
-        public ActionResult Home()
-        {                        
-            ViewData["ListAudioRandom"] = pd.getListAudioRandom();
-            ViewData["ListNewAudio"] = pd.getListNewAudio();
-            return View();
+        public const string VIDEO = "V001";
+        // GET: /Home/
+        public ActionResult Index(string id)
+        {
+
+            ViewData["TopPost"] = pd.getTopPost(id);
+                ViewData["ListPostRandom"] = pd.getListPostRandom(id);
+                ViewData["ListNewPost"] = pd.getListNewPost(id);
+                return View();
+            
+
+
+
         }
 
-        public ActionResult Audio_detail(int id)
+
+        public ActionResult Detail(int id)
         {
-            Post post = pd.getPostFromId(id);            
-            ViewData["Suggestions"] = pd.getListuggestions(post.genre.id,post.singer.id);
-            ViewData["sizeComment"] = pd.getSizeCommentOfPost(id);  
+            Post post = pd.getPostFromId(id);
+            ViewData["Suggestions"] = pd.getListuggestions(post.genre.id, post.singer.id, post);
+            ViewData["sizeComment"] = pd.getSizeCommentOfPost(id);
             return View(post);
         }
 
-        
+
         public ActionResult Singer(int id)
         {
-            if(id == ALLSINGER)
-            {
-                return View();
-            }
-            else
-            {
-                var singer = sd.getSinger(id);
-                return View(singer);
-            }
-            
-            
+            ViewData["ListSinger"] = gd.getAllSigner();
+            ViewData["PostAudioFromSinger"] = pd.getPostAudioFromSinger(id);
+            ViewData["PostVideoFromSinger"] = pd.getPostVideoFromSinger(id);
+            ViewData["idSinger"] = id;
+            return View();
+
+
+
         }
         public ActionResult Login()
         {
@@ -53,20 +57,12 @@ namespace MyMusic.Controllers
         public ActionResult Genre(int id)
         {
             ViewData["ListGenre"] = gd.getAllGenre();
-            if (id==ALLGENRE)
-            {
-                ViewData["PostAudioAllGenre"] = pd.getPostAudioAllGenre();
-                ViewData["PostVideoAllGenre"] = pd.getPostVideoAllGenre();
-                ViewData["idGenre"] = id;
-                return View();
+            ViewData["PostAudioFromGenre"] = pd.getPostAudioFromGenre(id);
+            ViewData["PostVideoFromGenre"] = pd.getPostVideoFromGenre(id);
+            ViewData["idGenre"] = id;
+            return View();
 
-            }
-            else
-            {
-                ViewData["PostFromGenre"] = pd.getPostFromGenre(id);
-                ViewData["idGenre"] = id;
-                return View();
-            }
+
 
         }
 
