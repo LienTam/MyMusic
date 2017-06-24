@@ -1,0 +1,129 @@
+﻿@model MyMusic.Models.Post
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="vbox" id="bjax-el">
+    <section class="scrollable padder-lg" id="bjax-target">
+        <section>
+
+            <h2 class="font-thin m-b">
+                Discover
+                <span class="musicbar animate inline m-l-sm"
+                      style="width: 20px; height: 20px">
+                    <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span>
+                    <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                </span>
+            </h2>
+            <div class="row row-sm">                              
+                    @foreach (var item in ViewData["ListAudioRandom"]
+                                            as List<MyMusic.Models.Post>)
+                    {
+                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="item">
+                                <div class="pos-rlt">
+                                    <div class="item-overlay opacity r r-2x bg-black">
+                                        <div class="center text-center m-t-n">
+                                            <a href="#" data-toggle="class">
+                                                <i class="icon-control-play i-2x text"></i>
+                                                <i class="icon-control-pause i-2x text-active"></i>
+                                            </a>
+                                        </div>
+                                        <div class="bottom padder m-b-sm">
+                                            <a href="#" class="pull-right active" data-toggle="class">
+                                                <i class="fa fa-heart-o text"></i>
+                                                <i class="fa fa-heart text-active text-danger"></i>
+                                            </a>
+                                            <a href="#" data-toggle="class">
+                                                <i class="fa fa-plus-circle text"></i>
+                                                <i class="fa fa-check-circle text-active text-info"></i>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="top">
+                                        <span class="pull-right m-t-sm m-r-sm badge bg-white">@item.listenning</span>
+                                    </div>
+                                    <a href="">
+                                        <img src="@item.image.contentImage" alt="" class="r r-2x img-full">
+                                    </a>
+                                </div>
+                                <div class="padder-v">
+                                    <a href="@Url.Action("Audio_detail", "Home", new {id = @item.Id })"
+                                       class="text-ellipsis">@item.nameSong</a> <a href="@Url.Action("Singer","Home",new { id= @item.singer.id})"
+                                                                                     class="text-ellipsis text-xs text-muted">@item.singer.nameSinger</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+            </div>
+            
+        </section>
+        <div class="row">
+
+            <div class="col-md-7">
+                <h3 class="font-thin">
+                    New Song
+                </h3>
+                <div class="row row-sm">
+                  @foreach (var item in ViewData["ListNewAudio"]
+                                      as List<MyMusic.Models.Post>) { 
+                        <div class="col-xs-6 col-sm-3">
+                            <div class="item">
+                                <div class="pos-rlt">
+                                    <div class="item-overlay opacity r r-2x bg-black">
+                                        <div class="center text-center m-t-n">
+                                            <a href="<c:url value='/audio-detail-${song.code}' />">
+                                                <i class="fa fa-play-circle i-2x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="<c:url value='/audio-detail-${song.code}' />">
+                                        <img src="@item.image.contentImage" alt="" class="r r-2x img-full">
+                                    </a>
+                                </div>
+                                <div class="padder-v">
+                                    <a href="<c:url value='/audio-detail-${song.code}' />"
+                                       class="text-ellipsis">@item.nameSong</a> <a href="<c:url value='/singer-${song.singer.id}' />"
+                                                                                     class="text-ellipsis text-xs text-muted">@item.singer.nameSinger</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <h3 class="font-thin">
+                    Top Song
+                </h3>
+                <div class="list-group bg-white list-group-lg no-bg auto">
+                    <c:set var="listen" value="${countList}" />
+                    <c:forEach items="${listPostTopAudio}" var="top" varStatus="count">
+                        <a href="<c:url value='/audio-detail-${top.code}' />"
+                           class="list-group-item clearfix">
+                            <span class="pull-right h2 text-muted m-l">${count.count}</span> <span class="pull-left thumb avatar m-r">
+                                <img src="${top.image}"
+                                     alt="...">
+                            </span> <span class="clear">
+                                <span>${top.nameSong}</span> <small class="text-muted clear text-ellipsis">
+                                    ${top.singer.nameSinger}
+                                </small> <small class="text-muted clear text-ellipsis">
+                                    ${listen[count.index]} <i class="fa fa-user icon-earphones"></i>
+                                </small>
+                            </span>
+                        </a>
+                    </c:forEach>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+</section>
+<script src="resources/js/songFavorite.js"></script>
+
+

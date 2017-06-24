@@ -1,0 +1,473 @@
+﻿
+@{
+    ViewBag.Title = "Genre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{var idGenre = ViewData["idGenre"];
+    <section class="hbox stretch">
+        
+        <aside class="aside bg-light dk" id="sidebar">
+            <section class="vbox animated fadeInUp">
+                <section class="scrollable hover">
+                    <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+
+                        @if ((int)@idGenre == -1)
+                        {
+                        <a href="@Url.Action("Genre","Home",new { id = -1 })"
+                           class="list-group-item active">All Genre</a>
+                        }
+                        else
+                        {
+                        <a href="@Url.Action("Genre","Home",new { id = -1 })" class="list-group-item">
+                            All Genre
+                        </a>
+                        }
+                        @foreach (var genre in ViewData["ListGenre"] as List<MyMusic.Models.Genre>
+                            )
+                            {
+                            if ((int)@idGenre == @genre.id)
+                            {
+
+                            <a href="@Url.Action("Genre","Home",new { id= @genre.id})"
+                               class="list-group-item active">@genre.nameGenre</a>
+                            }
+                            else
+                            {
+
+                            <a href="@Url.Action("Genre","Home",new { id= @genre.id})"
+                               class="list-group-item">@genre.nameGenre</a>
+                            }
+                            }
+                            }
+
+                    </div>
+                </section>
+            </section>
+        </aside>
+        <!-- end side content -->
+        <section class="vbox">
+            <section class="scrollable padder-lg" id="bjax-target">
+                <section>
+
+                    <h2 class="font-thin m-b">
+                        Audio
+                        <span class="musicbar animate inline m-l-sm"
+                              style="width: 20px; height: 20px">
+                            <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span>
+                            <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                        </span>
+                    </h2>
+                    <div class="row row-sm">
+                        @if ((int)@idGenre == -1)
+                        {
+                            foreach (var audio in ViewData["PostAllGenre"] as List<MyMusic.Models.Post>)
+                            {
+                                if (audio is MyMusic.Models.Audio) {
+                                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                    <div class="item">
+                                        <div class="pos-rlt">
+                                            <div class="item-overlay opacity r r-2x bg-black">
+                                                <div class="center text-center m-t-n">
+                                                    <a href="@Url.Action("Audio_detail", "Home", new { id = @audio.Id })">
+                                                        <i class="icon-control-play i-2x"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="bottom padder m-b-sm">
+                                                    
+                                                        <a href="#"
+                                                           class="pull-right active">
+                                                            <i class="fa fa-heart-o text"></i>
+                                                            <i class="fa fa-heart text-active text-danger"></i>
+                                                        </a>
+                                                    
+                                                    
+                                                    <a href="#" data-toggle="class">
+                                                        <i class="fa fa-plus-circle text"></i> <i class="fa fa-check-circle text-active text-info"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="top">
+                                                <span class="pull-right m-t-sm m-r-sm badge bg-white">@audio.listenning</span>
+                                            </div>
+                                            <a href="#">
+                                                <img src="@audio.image.contentImage" alt="" class="r r-2x img-full">
+                                            </a>
+                                        </div>
+                                        <div class="padder-v">
+                                            <a href="@Url.Action("Audio_detail", "Home", new { id = @audio.Id })"
+                                               class="text-ellipsis">@audio.nameSong</a> <a href="@Url.Action("Singer", "Home", new { id = @audio.singer.id })"
+                                                                                              class="text-ellipsis text-xs text-muted">@audio.singer.nameSinger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            }
+                        }
+
+
+                        <c:if test="${checkUser == false}">
+                            <c:forEach items="${postListAudio}" var="audio" varStatus="count">
+                                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                    <div class="item">
+                                        <div class="pos-rlt">
+                                            <div class="item-overlay opacity r r-2x bg-black">
+                                                <div class="center text-center m-t-n">
+                                                    <a href="<c:url value='/audio-detail-${audio.code}' />">
+                                                        <i class="icon-control-play i-2x"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="bottom padder m-b-sm">
+                                                    <a class="pull-right"> <i class="fa fa-heart-o"></i></a> <a data-toggle="class">
+                                                        <i class="fa fa-plus-circle text"></i>
+                                                        <i class="fa fa-check-circle text-active text-info"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="top">
+                                                <span class="pull-right m-t-sm m-r-sm badge bg-white">${listen[count.index]}</span>
+                                            </div>
+                                            <a href="<c:url value='/audio-detail-${audio.code}' />">
+                                                <img src="${audio.image}" alt="" class="r r-2x img-full">
+                                            </a>
+                                        </div>
+                                        <div class="padder-v">
+                                            <a href="<c:url value='/audio-detail-${audio.code}' />"
+                                               class="text-ellipsis">${audio.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                              class="text-ellipsis text-xs text-muted">${audio.singer.nameSinger}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                    <c:choose>
+                        <c:when test="${select}">
+                            <ul class="pagination pagination">
+                                <c:choose>
+                                    <c:when test="${pageSelect == 1}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-left disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="pre" value="${pageSelect - 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-${idPost}&page-${pre}' />">
+                                                <i class="fa fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach begin="1" end="${length}" var="page">
+                                    <c:choose>
+                                        <c:when test="${pageSelect == page}">
+                                            <li class="active">
+                                                <a href="<c:url value='/genres-${idPost}&page-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <a href="<c:url value='/genres-${idPost}&page-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pageSelect == length}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-right disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="next" value="${pageSelect + 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-${idPost}&page-${next}' />">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="pagination pagination">
+                                <c:choose>
+                                    <c:when test="${pageSelect == 1}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-left disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="pre" value="${pageSelect - 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-page-${pre}' />">
+                                                <i class="fa fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach begin="1" end="${length}" var="page">
+                                    <c:choose>
+                                        <c:when test="${pageSelect == page}">
+                                            <li class="active">
+                                                <a href="<c:url value='/genres-page-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <a href="<c:url value='/genres-page-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pageSelect == length}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-right disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="next" value="${pageSelect + 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-page-${next}' />">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <h2 class="font-thin m-b">
+                        <s:message code="genres.video" />
+                        <span class="musicbar animate inline m-l-sm"
+                              style="width: 20px; height: 20px">
+                            <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span>
+                            <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                        </span>
+                    </h2>
+                    <div class="row row-sm">
+                        <c:set var="listen" value="${listIntListenV}" />
+                        <c:if test="${checkUser == true}">
+                            <c:set var="check" value="${checkListV}" />
+                            <c:forEach items="${postListVideo}" var="video" varStatus="count">
+                                <div class="col-xs-6 col-sm-4 col-md-3">
+                                    <div class="item">
+                                        <div class="pos-rlt">
+                                            <div class="item-overlay opacity r r-2x bg-black">
+                                                <div class="center text-center m-t-n">
+                                                    <a href="<c:url value='/video-detail-${video.code}' />">
+                                                        <i class="icon-control-play i-2x"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="bottom padder m-b-sm">
+                                                    <c:if test="${check[count.index] == true}">
+                                                        <a href="<c:url value='/likeg-user-${username}&post-${video.id}&genre-${video.genre.id}' />"
+                                                           class="pull-right active">
+                                                            <i class="fa fa-heart-o text"></i>
+                                                            <i class="fa fa-heart text-active text-danger"></i>
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${check[count.index] == false}">
+                                                        <a href="<c:url value='/likeg-user-${username}&post-${video.id}&genre-${video.genre.id}' />"
+                                                           class="pull-right">
+                                                            <i class="fa fa-heart-o text"></i> <i class="fa fa-heart text-active text-danger"></i>
+                                                        </a>
+                                                    </c:if>
+                                                    <a href="#" data-toggle="class">
+                                                        <i class="fa fa-plus-circle text"></i> <i class="fa fa-check-circle text-active text-info"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="top">
+                                                <span class="pull-right m-t-sm m-r-sm badge bg-white">${listen[count.index]}</span>
+                                            </div>
+                                            <a href="<c:url value='/video-detail-${video.code}' />">
+                                                <img src="${video.image}" alt="" class="r r-2x img-full">
+                                            </a>
+                                        </div>
+                                        <div class="padder-v">
+                                            <a href="<c:url value='/video-detail-${video.code}' />"
+                                               class="text-ellipsis">${video.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                              class="text-ellipsis text-xs text-muted">${video.singer.nameSinger}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${checkUser == false}">
+                            <c:forEach items="${postListVideo}" var="video" varStatus="count">
+                                <div class="col-xs-6 col-sm-4 col-md-3">
+                                    <div class="item">
+                                        <div class="pos-rlt">
+                                            <div class="item-overlay opacity r r-2x bg-black">
+                                                <div class="center text-center m-t-n">
+                                                    <a href="<c:url value='/video-detail-${video.code}' />">
+                                                        <i class="icon-control-play i-2x"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="bottom padder m-b-sm">
+                                                    <a class="pull-right"> <i class="fa fa-heart-o"></i></a> <a data-toggle="class">
+                                                        <i class="fa fa-plus-circle text"></i>
+                                                        <i class="fa fa-check-circle text-active text-info"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="top">
+                                                <span class="pull-right m-t-sm m-r-sm badge bg-white">${listen[count.index]}</span>
+                                            </div>
+                                            <a href="<c:url value='/video-detail-${video.code}' />">
+                                                <img src="${video.image}" alt="" class="r r-2x img-full">
+                                            </a>
+                                        </div>
+                                        <div class="padder-v">
+                                            <a href="<c:url value='/video-detail-${video.code}' />"
+                                               class="text-ellipsis">${video.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                              class="text-ellipsis text-xs text-muted">${video.singer.nameSinger}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                    <c:choose>
+                        <c:when test="${select}">
+                            <ul class="pagination pagination">
+                                <c:choose>
+                                    <c:when test="${pageSelectVideo == 1}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-left disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="pre" value="${pageSelectVideo - 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-${idPost}&pagev-${pre}' />">
+                                                <i class="fa fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach begin="1" end="${lengthVideo}" var="page">
+                                    <c:choose>
+                                        <c:when test="${pageSelectVideo == page}">
+                                            <li class="active">
+                                                <a href="<c:url value='/genres-${idPost}&pagev-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <a href="<c:url value='/genres-${idPost}&pagev-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pageSelectVideo == lengthVideo}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-right disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="next" value="${pageSelectVideo + 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-${idPost}&pagev-${next}' />">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="pagination pagination">
+                                <c:choose>
+                                    <c:when test="${pageSelectVideo == 1}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-left disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="pre" value="${pageSelectVideo - 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-pagev-${pre}' />">
+                                                <i class="fa fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach begin="1" end="${lengthVideo}" var="page">
+                                    <c:choose>
+                                        <c:when test="${pageSelectVideo == page}">
+                                            <li class="active">
+                                                <a href="<c:url value='/genres-pagev-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li>
+                                                <a href="<c:url value='/genres-pagev-${page}' />">
+                                                    <c:out value="${page}" />
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${pageSelectVideo == lengthVideo}">
+                                        <li>
+                                            <a>
+                                                <i class="fa fa-chevron-right disabled"></i>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="next" value="${pageSelectVideo + 1}" />
+                                        <li>
+                                            <a href="<c:url value='/genres-pagev-${next}' />">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                </section>
+            </section>
+        </section>
+    </section>
+
+}
+

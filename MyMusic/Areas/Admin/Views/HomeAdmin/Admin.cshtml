@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MyMusic.Models.User>
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container body">
+  
+        <div class="right_col" role="main">
+            <t:insertAttribute name="top_stats" />
+            <t:insertAttribute name="bot_chart" />
+        </div>
+
+</div>

@@ -1,0 +1,133 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")"
+          type="text/css" />
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/animate.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/font-awesome.min.css")"
+          type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/simple-line-icons.css")"
+          type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/font.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/app.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/abc.css")" type="text/css" />
+    <meta charset="utf-8" />
+    
+</head>
+<body>
+    <section class="vbox">
+        <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+            <div class="navbar-header aside bg-info nav-xs">
+                <a class="btn btn-link visible-xs">
+                    <i class="icon-list"></i>
+                </a>
+                
+                <a href="@Url.Action("Home", "Home")" class="navbar-brand text-lt">
+                    <i class="icon-earphones"></i> <span class="hidden-nav-xs m-l-sm">
+                        My Music
+                    </span>
+                </a> <a class="btn btn-link visible-xs">
+                    <i class="icon-settings"></i>
+                </a>
+            </div>
+            <ul class="nav navbar-nav hidden-xs">
+                <li>
+                    <a href="#nav,.navbar-header"
+                       data-toggle="class:nav-xs,nav-xs" class="text-muted">
+                        <i class="fa fa-indent text"></i> <i class="fa fa-dedent text-active"></i>
+                    </a>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs"
+                  role="search" method="POST" action="result-search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-sm bg-white btn-icon rounded">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span> <input type="text" name="key" class="form-control input-sm no-border rounded"
+                                       placeholder="Search songs">
+                    </div>
+                </div>
+            </form>
+            
+                    <div class="navbar-right ">
+                        <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+
+                            <li>
+                                 <a href="@Url.Action("Login", "Home")" class="dropdown-toggle bg clear">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                 <a href="@Url.Action("Register", "Home")" class="dropdown-toggle bg clear">
+                                    SingUp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+        </header>
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-black dk nav-xs aside hidden-print" id="nav">
+                    <section class="vbox">
+                        <section class="w-f-md scrollable">
+                            <div class="slim-scroll">
+                                <!-- nav -->
+                                <nav class="nav-primary hidden-xs">
+
+                                    <ul class="nav bg clearfix">
+                                        
+                                        <li>
+                                            <a href="@Url.Action("Genre", "Home", new { id=-1})">
+                                                <i class="icon-music-tone-alt icon text-info"></i> <span class="font-bold">Genre</span>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="@Url.Action("Singer", "Home", new { id =-1})">
+                                                <i class="icon-users icon text-primary"></i> <span class="font-bold">Singer</span>
+                                            </a>
+                                        </li>
+
+                                        
+                                            
+                                            <li>
+                                                <a href="@Url.Action("Favorite", "Home")">
+                                                    <i class="icon-list icon text-info-dker"></i> <span class="font-bold">Favorite</span>
+                                                </a>
+                                            </li>                                      
+                                                                               
+                                        <li>
+                                            <a href="@Url.Action("Video", "Home")">
+                                                <i class="icon-social-youtube icon text-primary"></i> <span class="font-bold">Video</span>
+                                            </a>
+                                        </li>
+                                        <li class="m-b hidden-nav-xs"></li>
+                                    </ul>
+                                </nav>
+                                <!-- / nav -->
+                            </div>
+                        </section>
+                    </section>
+                </aside>
+                <!-- /.aside -->
+                <section id="content">
+                    @RenderBody()
+                </section>
+            </section>
+        </section>
+    </section>
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <!-- Bootstrap -->
+    <script src="@Url.Content("~/Content/js/bootstrap.js")"></script>
+    <!-- App -->
+    <script src="@Url.Content("~/Content/js/app.js")"></script>
+
+</body>
+</html>

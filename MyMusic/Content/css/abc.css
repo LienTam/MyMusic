@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+div.errors {
+	background-color: #ffcccc;
+	border: 2px solid red;
+}
+
+label.error {
+	color: red;
+}
+
+input.error {
+	background-color: #ffcccc;
+}
+
+h1 {
+	color: red;
+}
+
+#messageWelcome {
+	padding-top: 8%;
+}
+
+.modal-detail {
+	padding-bottom: 1%;
+}
+
+.modal-content {
+	width: 70%;
+	margin-left: 15%;
+}
+
+.control-label {
+	margin-top: 2%;
+}
+#userNameViewMenu{
+	margin-bottom: 0px;
+}

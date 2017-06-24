@@ -1,0 +1,150 @@
+﻿@model MyMusic.Models.Post
+
+<section class="vbox">
+    <section class="scrollable wrapper-lg">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel">
+                    <!-- video player -->
+                    <a id="stockPost" href=""></a>
+                    <section id="content">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <div class="wrapper-lg">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <img src="@Model.image.contentImage" class="img-full m-b">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <h2 class="m-t-none text-black">
+                                                @Model.nameSong
+                                                <span class="musicbar animate inline m-l-sm"
+                                                      style="width: 20px; height: 20px">
+                                                    <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span> <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                                                </span>
+                                            </h2>
+                                            <div class="clearfix m-b-sm">
+                                                <div class="clear">
+                                                    <a href="@Url.Action("Singer","Home",new { id= @Model.singer.id})"
+                                                       class="text-info">@Model.singer.nameSinger</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="m-b-lg">
+                                                <a href="#" class="btn btn-default">
+                                                    @{
+                                                        var sizeListComment = ViewData["sizeComment"];
+                                                    }
+                                                    @if ((int)sizeListComment < 2)
+                                                    {
+
+                                                        <p>@sizeListComment Comment</p>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <p>@sizeListComment Comments</p>
+                                                    }
+
+                                                </a>
+                                            </div>
+                                            <div>
+                                                Tag
+                                                <a href="@Url.Action("Singer", "Home",new { id= Model.singer.id})"
+                                                   class="badge bg-light">@Model.singer.nameSinger</a> <a href="@Url.Action("Genre", "Home",new { id= Model.singer.id})"
+                                                                                                          class="badge bg-light">@Model.genre.nameGenre</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="clearfix">
+                                                                                                    <audio controls autoplay style="width: 110%;">
+                                                                                                        <source src="@Model.contentPost" type="audio/mpeg">
+                                                                                                    </audio>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="wrapper-lg">
+                                                                                    <div class="text-muted">
+                                                                                        <i class="fa fa-user icon-muted"></i> by <a href="#" class="m-r-sm">@Model.ownPost.userName</a>
+                                                                                        <i class="fa fa-clock-o icon-muted"></i>
+                                                                                        @String.Format("{0:d}", Model.datePost)
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </section>
+                                                                        </div>
+
+
+                                                                        <section class="comment-list block">
+                                                                            @foreach (var cmt in Model.listComment)
+                                                                            {
+                                                                                <article id="comment-id-1" class="comment-item">
+                                                                                    <a class="pull-left thumb-sm">
+                                                                                        <img src="@cmt.ownComment.avatar" class="img-circle">
+                                                                                    </a>
+                                                                                    <section class="comment-body m-b">
+                                                                                        <header>
+                                                                                            <a href="#"><strong>@cmt.ownComment.userName</strong></a>
+                                                                                            <label class="label bg-info m-l-xs">@String.Format("{0:d}", cmt.commentTime)</label>
+                                                                                        </header>
+                                                                                        <div class="m-t-sm">@cmt.contentCmt</div>
+                                                                                    </section>
+
+                                                                                </article>
+
+                                                                            }
+                                                                        </section>
+
+                                                                        <c:if test="${user!=null}">
+                                                                            <h4 class="m-t-lg m-b">
+                                                                                <c:out value="Leave a comment" />
+                                                                            </h4>
+                                                                            <form>
+                                                                                <div class="form-group">
+                                                                                    <label>
+                                                                                        <c:out value="Comment" />
+                                                                                    </label>
+                                                                                    <textarea class="form-control" rows="5" id="dataComment"
+                                                                                              placeholder="Type your comment"></textarea>
+                                                                                </div>
+                                                                                <s:url value="comment/{userID}/" var="url_comment">
+                                                                                    <s:param name="userID" value="${user.id}" />
+                                                                                </s:url>
+                                                                                <a id="url_comment" href="${url_comment}"></a>
+                                                                                <button type="button" class="btn btn-info" onclick="startComment()">
+                                                                                    Comment
+                                                                                </button>
+                                                                            </form>
+                                                                        </c:if>
+
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading">Suggestions</div>
+                                                                            <div class="panel-body">
+                                                                                @foreach (var suggestion in ViewData["Suggestions"] as List<MyMusic.Models.Post>)
+                                                                                {
+                                                                                    if (suggestion is MyMusic.Models.Audio) { 
+
+                                                                                    <article class="media">
+                                                                                        <a href="@Url.Action("Audio_detail", "Home", new { id = @suggestion.Id })" class="pull-left thumb-lg m-r">
+                                                                                            <img src="@suggestion.image.contentImage">
+                                                                                        </a>
+                                                                                        <div class="media-body">
+                                                                                            <a href="@Url.Action("Audio_detail", "Home", new { id = @suggestion.Id })" class="font-semibold">@suggestion.nameSong</a>
+                                                                                            <div class="text-xs block m-t-xs">
+                                                                                                <a href="@Url.Action("Singer", "Home", new { id = @suggestion.singer.id })">@suggestion.singer.nameSinger</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </article>
+                                                                                    }
+
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </section>
+                                                        <script src="resources/js/comment.js"></script>

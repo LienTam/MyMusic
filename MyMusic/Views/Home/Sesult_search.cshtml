@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Sesult_search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}                       <section class="scrollable padder-lg w-f-md" id="bjax-target">
+                            <section>
+
+                                <h2 class="font-thin m-b">
+                                    <s:message code="genres.audio" />
+                                    <span class="musicbar animate inline m-l-sm"
+                                          style="width: 20px; height: 20px">
+                                        <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span>
+                                        <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                                    </span>
+                                </h2>
+                                <div class="row row-sm">
+                                    <c:forEach items="${postListAudio}" var="audio" varStatus="count">
+                                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                                            <div class="item">
+                                                <div class="pos-rlt">
+                                                    <div class="item-overlay opacity r r-2x bg-black">
+                                                        <div class="center text-center m-t-n">
+                                                            <a href="<c:url value='/audio-detail-${audio.code}' />">
+                                                                <i class="icon-control-play i-2x"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="<c:url value='/audio-detail-${audio.code}' />">
+                                                        <img src="${audio.image}" alt="" class="r r-2x img-full">
+                                                    </a>
+                                                </div>
+                                                <div class="padder-v">
+                                                    <a href="<c:url value='/audio-detail-${audio.code}' />"
+                                                       class="text-ellipsis">${audio.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                                      class="text-ellipsis text-xs text-muted">${audio.singer.nameSinger}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+
+                            </section>
+                            <section>
+
+                                <h2 class="font-thin m-b">
+                                    <s:message code="genres.video" />
+                                    <span class="musicbar animate inline m-l-sm"
+                                          style="width: 20px; height: 20px">
+                                        <span class="bar1 a1 bg-primary lter"></span> <span class="bar2 a2 bg-info lt"></span> <span class="bar3 a3 bg-success"></span>
+                                        <span class="bar4 a4 bg-warning dk"></span> <span class="bar5 a5 bg-danger dker"></span>
+                                    </span>
+                                </h2>
+                                <div class="row row-sm">
+                                    <c:forEach items="${postListVideo}" var="video" varStatus="count">
+                                        <div class="col-xs-6 col-sm-4 col-md-3">
+                                            <div class="item">
+                                                <div class="pos-rlt">
+                                                    <div class="item-overlay opacity r r-2x bg-black">
+                                                        <div class="center text-center m-t-n">
+                                                            <a href="<c:url value='/video-detail-${video.code}' />">
+                                                                <i class="icon-control-play i-2x"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="<c:url value='/video-detail-${video.code}' />">
+                                                        <img src="${video.image}" alt="" class="r r-2x img-full">
+                                                    </a>
+                                                </div>
+                                                <div class="padder-v">
+                                                    <a href="<c:url value='/video-detail-${video.code}' />"
+                                                       class="text-ellipsis">${video.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                                      class="text-ellipsis text-xs text-muted">${video.singer.nameSinger}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+
+                            </section>
+                        </section>
+ 

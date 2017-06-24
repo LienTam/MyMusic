@@ -1,0 +1,377 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="content" onload="disableAllEditButton()">
+    <section id="content">
+        <section class="vbox" id="bjax-el">
+
+            <div class="right_col" role="main">
+
+                
+                    <div class="container">
+                        <section id="content">
+                            <div class="row">
+                                <div class="col-sm-20">
+                                    <div class="panel wrapper-lg">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <img src="${user.avatar }" class="img-full m-b">
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <h1 id="userNameMainHeader">
+                                                    <c:out value="${user.userName}"></c:out>
+                                                </h1>
+                                                <div class="clearfix m-b-lg">
+                                                    <div class="clear">
+                                                        <div id="date-register">
+                                                            <s:message code="profile.dateRegister" />
+                                                            <c:out value="${user.getDateRegister()}"></c:out>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><s:message code="profile.userName" /></th>
+                                                            <th>
+                                                                <label id="userNameMainTable">
+                                                                    <c:out value="${user.userName}" />
+                                                                </label>
+                                                            </th>
+                                                            <th>
+                                                                <button id="linkEditFullName" type="button"
+                                                                        data-toggle="modal" data-target="#userNameMadal"
+                                                                        data-backdrop="static"
+                                                                        class="btn btn-success navbar-right ">
+                                                                    <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                                                    <s:message code="profile.nameEditButton" />
+                                                                </button>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><s:message code="profile.email" /></td>
+                                                            <td>
+                                                                <label id="mainEmail">
+                                                                    <c:out value="${user.email}" />
+                                                                </label>
+                                                            </td>
+                                                            <th>
+                                                                <button type="button" data-toggle="modal"
+                                                                        data-backdrop="static" data-target="#emailMadal"
+                                                                        class="btn btn-success navbar-right">
+                                                                    <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                                                    <s:message code="profile.nameEditButton" />
+                                                                </button>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:message code="profile.fullName" /></td>
+                                                            <td>
+                                                                <label id="mainFullName">
+                                                                    <c:out value="${user.fullName}" />
+                                                                </label>
+                                                            </td>
+                                                            <th>
+                                                                <button id="linkEditFullName" type="button"
+                                                                        data-toggle="modal" data-target="#fullNameMadal"
+                                                                        data-backdrop="static" class="btn btn-success navbar-right">
+                                                                    <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                                                    <s:message code="profile.nameEditButton" />
+                                                                </button>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><s:message code="profile.password" /></td>
+                                                            <td id="password"></td>
+                                                            <th>
+                                                                <button id="passwordButton" type="button"
+                                                                        data-toggle="modal" data-target="#passwordMadal"
+                                                                        data-backdrop="static" class="btn btn-success navbar-right">
+                                                                    <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                                                    <s:message code="profile.nameEditButton" />
+                                                                </button>
+                                                            </th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="userNameMadal" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                                            <h4 class="modal-title">
+                                                                <s:message code="profile.message.modalEditUserName" />
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form:form>
+                                                                <div class="form-group modal-detail">
+                                                                    <label class="col-sm-3 control-label">
+                                                                        <s:message code="profile.userName" />
+                                                                    </label>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" type="text" id="userNameInput"
+                                                                               onkeyup="activeConfirmEditUserNameButton()">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group modal-detail"
+                                                                     id="noticeUserNameNotEmpty"></div>
+
+                                                            </form:form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <s:url value="/profile/edit/userName/{userID}/"
+                                                                   var="editUserName">
+                                                                <s:param name="userID" value="${user.id}" />
+                                                            </s:url>
+                                                            <a id="url_editUserName" href="${editUserName}"></a>
+                                                            <button type="button" class="btn btn-info"
+                                                                    onclick="checkUserNameInput()"
+                                                                    id="confirmEditUserNameButton" data-dismiss="modal">
+                                                                <s:message code="profile.nameConfirmButton" />
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                <s:message code="profile.nameCloseButton" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="emailMadal" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                                            <h4 class="modal-title">
+                                                                <s:message code="profile.message.modalEditEmail" />
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form:form>
+                                                                <div class="form-group modal-detail">
+                                                                    <label class="col-sm-2 control-label">
+                                                                        <s:message code="profile.email" />
+                                                                    </label>
+                                                                    <div class="col-sm-10">
+                                                                        <input class="form-control" type="text" id="emailInput"
+                                                                               placeholder="Example: abc@gmail.com"
+                                                                               onkeyup="activeConfirmEditEmailButton()">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group modal-detail"
+                                                                     id="noticeEmailNotEmpty"></div>
+                                                            </form:form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <s:url value="/profile/edit/email/{userID}/" var="editEmail">
+                                                                <s:param name="userID" value="${user.id}" />
+                                                            </s:url>
+                                                            <a id="url_editEmail" href="${editEmail}"></a>
+                                                            <button type="button" class="btn btn-info"
+                                                                    onclick="checkEmailInput()" id="confirmEditEmailButton"
+                                                                    data-dismiss="modal">
+                                                                <s:message code="profile.nameConfirmButton" />
+                                                            </button>
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                <s:message code="profile.nameCloseButton" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="fullNameMadal" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                                            <h4 class="modal-title">
+                                                                <s:message code="profile.message.modalEditFullName" />
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form:form>
+                                                                <div class="form-group modal-detail">
+                                                                    <label class="col-sm-3 control-label">
+                                                                        <s:message code="profile.fullName" />
+                                                                    </label>
+                                                                    <div class="col-sm-9">
+                                                                        <input class="form-control" type="text" id="fullNameInput"
+                                                                               placeholder="Example: Marry Phan"
+                                                                               onkeyup="activeConfirmEditFullNameButton()">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group modal-detail"
+                                                                     id="noticeFullNameNotEmpty"></div>
+
+                                                            </form:form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <s:url value="/profile/edit/fullName/{userID}/"
+                                                                   var="editFullName">
+                                                                <s:param name="userID" value="${user.id}" />
+                                                            </s:url>
+                                                            <a id="url_editFullName" href="${editFullName}"></a>
+                                                            <button type="button" class="btn btn-info"
+                                                                    onclick="checkFullNameInput()"
+                                                                    id="confirmEditFullNameButton" data-dismiss="modal">
+                                                                <s:message code="profile.nameConfirmButton" />
+                                                            </button>
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                <s:message code="profile.nameCloseButton" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="passwordMadal" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                                            <h4 class="modal-title">
+                                                                <s:message code="profile.message.modalEditPassword" />
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form:form>
+                                                                <div class="form-group modal-detail">
+                                                                    <label class="col-sm-6 control-label">
+                                                                        <s:message code="profile.newPassword" />
+                                                                    </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input class="form-control" type="password"
+                                                                               onkeyup="checkNewPasswordAndConfirmNewPassword()"
+                                                                               id="newPasswordInput">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group modal-detail">
+                                                                    <label class="col-sm-6 control-label">
+                                                                        <s:message code="profile.confirmNewPassword" />
+                                                                    </label>
+                                                                    <div class="col-sm-6">
+                                                                        <input class="form-control" type="password"
+                                                                               id="confirmNewPasswordInput"
+                                                                               onkeyup="checkNewPasswordAndConfirmNewPassword()"
+                                                                               onkeypress="checkNewPasswordAndConfirmNewPassword()">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group modal-detail"
+                                                                     id="noticePasswordNotTheSame">
+                                                                    <label class="col-sm-13 control-label"></label>
+                                                                </div>
+                                                            </form:form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <s:url value="/profile/edit/passwrod/{userID}/"
+                                                                   var="editPassword">
+                                                                <s:param name="userID" value="${user.id}" />
+                                                            </s:url>
+                                                            <a id="url_editPassword" href="${editPassword}"></a>
+                                                            <button type="button" class="btn btn-info"
+                                                                    onclick="checkPasswordInput()"
+                                                                    id="confirmEditPasswordButton" data-dismiss="modal">
+                                                                <s:message code="profile.nameConfirmButton" />
+                                                            </button>
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">
+                                                                <s:message code="profile.nameCloseButton" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="modal fade" id="myModalFullName" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <label id="stringNotice">
+                                                                <s:message code="profile.message.modalSuccessFullName" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="myModalEmail" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <label id="stringNotice">
+                                                                <s:message code="profile.message.modalSuccessEmail" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="myModalUserName" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <label id="stringNotice">
+                                                                <s:message code="profile.message.modalSuccessUserName" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="myModalPassword" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-body">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <label id="stringNotice">
+                                                                <s:message code="profile.message.modalSuccessPassword" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                               
+            </div>
+        </section>
+    </section>
+</section>
+<script src="resources/js/editDetailUser.js"></script>

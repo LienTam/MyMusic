@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+                <section class="vbox" id="bjax-el">
+                    <section class="scrollable padder-lg">
+                        <h2 class="font-thin m-b">
+                            <s:message code="video.top" />
+                        </h2>
+
+                        <div class="row row-sm">
+                            <c:set var="listen" value="${countList}" />
+                            <c:forEach items="${listPostTopVideo}" var="top" varStatus="count">
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="item">
+                                        <div class="pos-rlt">
+                                            <div class="item-overlay opacity r r-2x bg-black">
+                                                <div class="center text-center m-t-n">
+                                                    <a href="<c:url value='/video-detail-${top.code}' />">
+                                                        <i class="fa fa-play-circle i-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="top">
+                                                <span class="badge bg-dark m-l-sm m-t-sm">${listen[count.index]}</span>
+                                            </div>
+                                            <a href="<c:url value='/video-detail-${top.code}' />">
+                                                <img src="${top.image}" alt="" class="r r-2x img-full">
+                                            </a>
+                                        </div>
+                                        <div class="padder-v">
+                                            <a href="<c:url value='/video-detail-${top.code}' />" class="text-ellipsis">${top.nameSong}</a>
+                                            <a href="<c:url value='/singer-${top.singer.id}' />"
+                                               class="text-ellipsis text-xs text-muted">${top.singer.nameSinger}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <h3 class="font-thin m-b">
+                            <s:message code="video.list" />
+                        </h3>
+
+                        <div class="row row-sm">
+                            <c:set var="listen" value="${listIntListenV}" />
+                            <c:if test="${checkUser == true}">
+                                <c:set var="check" value="${checkListV}" />
+                                <c:forEach items="${postList}" var="video" varStatus="count">
+                                    <div class="col-xs-6 col-sm-4 col-md-3">
+                                        <div class="item">
+                                            <div class="pos-rlt">
+                                                <div class="item-overlay opacity r r-2x bg-black">
+                                                    <div class="center text-center m-t-n">
+                                                        <a href="<c:url value='/video-detail-${video.code}' />">
+                                                            <i class="fa fa-play-circle i-2x"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="bottom padder m-b-sm">
+                                                        <c:if test="${check[count.index] == true}">
+                                                            <a href="<c:url value='/likev-user-${username}&post-${video.id}' />"
+                                                               class="pull-right active">
+                                                                <i class="fa fa-heart-o text"></i>
+                                                                <i class="fa fa-heart text-active text-danger"></i>
+                                                            </a>
+                                                        </c:if>
+                                                        <c:if test="${check[count.index] == false}">
+                                                            <a href="<c:url value='/likev-user-${username}&post-${video.id}' />"
+                                                               class="pull-right">
+                                                                <i class="fa fa-heart-o text"></i> <i class="fa fa-heart text-active text-danger"></i>
+                                                            </a>
+                                                        </c:if>
+                                                        <a href="#" data-toggle="class">
+                                                            <i class="fa fa-plus-circle text"></i> <i class="fa fa-check-circle text-active text-info"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="top">
+                                                    <span class="pull-right m-t-sm m-r-sm badge bg-white">${listen[count.index]}</span>
+                                                </div>
+                                                <a href="<c:url value='/video-detail-${video.code}' />">
+                                                    <img src="${video.image}" alt="" class="r r-2x img-full">
+                                                </a>
+                                            </div>
+                                            <div class="padder-v">
+                                                <a href="<c:url value='/video-detail-${video.code}' />"
+                                                   class="text-ellipsis">${video.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                                  class="text-ellipsis text-xs text-muted">${video.singer.nameSinger}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${checkUser == false}">
+                                <c:forEach items="${postList}" var="video" varStatus="count">
+                                    <div class="col-xs-6 col-sm-4 col-md-3">
+                                        <div class="item">
+                                            <div class="pos-rlt">
+                                                <div class="item-overlay opacity r r-2x bg-black">
+                                                    <div class="center text-center m-t-n">
+                                                        <a href="<c:url value='/video-detail-${video.code}' />">
+                                                            <i class="fa fa-play-circle i-2x"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="bottom padder m-b-sm">
+                                                        <a class="pull-right"> <i class="fa fa-heart-o"></i></a>
+                                                        <a data-toggle="class">
+                                                            <i class="fa fa-plus-circle text"></i> <i class="fa fa-check-circle text-active text-info"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="top">
+                                                    <span class="pull-right m-t-sm m-r-sm badge bg-white">${listen[count.index]}</span>
+                                                </div>
+                                                <a href="<c:url value='/video-detail-${video.code}' />">
+                                                    <img src="${video.image}" alt="" class="r r-2x img-full">
+                                                </a>
+                                            </div>
+                                            <div class="padder-v">
+                                                <a href="<c:url value='/video-detail-${video.code}' />"
+                                                   class="text-ellipsis">${video.nameSong}</a> <a href="<c:url value='/singer-${video.singer.id}' />"
+                                                                                                  class="text-ellipsis text-xs text-muted">${video.singer.nameSinger}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                        <ul class="pagination pagination">
+                            <c:choose>
+                                <c:when test="${pageSelect == 1}">
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-chevron-left disabled"></i>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="pre" value="${pageSelect - 1}" />
+                                    <li>
+                                        <a href="<c:url value='/video-page-${pre}' />">
+                                            <i class="fa fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:forEach begin="1" end="${lengthVideo}" var="page">
+                                <c:choose>
+                                    <c:when test="${pageSelect == page}">
+                                        <li class="active">
+                                            <a href="<c:url value='/video-page-${page}' />">
+                                                <c:out value="${page}" />
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="<c:url value='/video-page-${page}' />">
+                                                <c:out value="${page}" />
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:choose>
+                                <c:when test="${pageSelect == lengthVideo}">
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-chevron-right disabled"></i>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="next" value="${pageSelect + 1}" />
+                                    <li>
+                                        <a href="<c:url value='/video-page-${next}' />">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </section>
+                </section>
