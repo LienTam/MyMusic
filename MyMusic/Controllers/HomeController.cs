@@ -55,7 +55,8 @@ namespace MyMusic.Controllers
             ViewData["ListGenre"] = gd.getAllGenre();
             if (id==ALLGENRE)
             {
-                ViewData["PostAllGenre"] = pd.getPostAllGenre();
+                ViewData["PostAudioAllGenre"] = pd.getPostAudioAllGenre();
+                ViewData["PostVideoAllGenre"] = pd.getPostVideoAllGenre();
                 ViewData["idGenre"] = id;
                 return View();
 

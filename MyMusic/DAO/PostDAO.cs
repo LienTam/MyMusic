@@ -34,9 +34,15 @@ namespace MyMusic.DAO
         {
             return db.Posts.Find(id);
         }
-        public List<Post> getPostAllGenre()
+        public List<Post> getPostAudioAllGenre()
         {
-            return db.Posts.Take(18).ToList();
+            return db.Posts.Where(p =>p is Audio).OrderBy(o => Guid.NewGuid()).Take(12).ToList();
+            
+        }
+        public List<Post> getPostVideoAllGenre()
+        {
+            return db.Posts.Where(p => p is Video).OrderBy(o => Guid.NewGuid()).Take(12).ToList();
+
         }
         public List<Post> getPostFromGenre(int idGenre)
         {
