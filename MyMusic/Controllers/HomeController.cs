@@ -10,20 +10,25 @@ namespace MyMusic.Controllers
         PostDAO pd = new PostDAO();
         ModelDAO md = new ModelDAO();
         SingerDAO sd = new SingerDAO();
+        UserDAO ud = new UserDAO();
         public const string VIDEO = "V001";
         // GET: /Home/
         public ActionResult Index(string id)
         {
 
             ViewData["TopPost"] = pd.getTopPost(id);
-                ViewData["ListPostRandom"] = pd.getListPostRandom(id);
-                ViewData["ListNewPost"] = pd.getListNewPost(id);
-                return View();
-            
-
-
+            ViewData["ListPostRandom"] = pd.getListPostRandom(id);
+            ViewData["ListNewPost"] = pd.getListNewPost(id);
+            return View();
+        }
+      
+        public ActionResult Profile(int id)
+        {
+            Member member = ud.getMemberFromId(id);
+            return View(member);
 
         }
+
 
 
         public ActionResult Detail(int id)

@@ -2,6 +2,7 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model MyMusic.Models.Member
 <section id="content" onload="disableAllEditButton()">
     <section id="content">
         <section class="vbox" id="bjax-el">
@@ -16,27 +17,27 @@
                                     <div class="panel wrapper-lg">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <img src="${user.avatar }" class="img-full m-b">
+                                                <img src="@Model.avatar.contentImage" class="img-full m-b">
                                             </div>
                                             <div class="col-sm-7">
                                                 <h1 id="userNameMainHeader">
-                                                    <c:out value="${user.userName}"></c:out>
+                                                    @Model.userName
                                                 </h1>
                                                 <div class="clearfix m-b-lg">
                                                     <div class="clear">
                                                         <div id="date-register">
-                                                            <s:message code="profile.dateRegister" />
-                                                            <c:out value="${user.getDateRegister()}"></c:out>
+                                                            Date Register
+                                                           @String.Format("{0:d}", Model.dateRegister)
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th><s:message code="profile.userName" /></th>
+                                                            <th>User Name
                                                             <th>
                                                                 <label id="userNameMainTable">
-                                                                    <c:out value="${user.userName}" />
+                                                                    @Model.userName
                                                                 </label>
                                                             </th>
                                                             <th>
@@ -45,17 +46,17 @@
                                                                         data-backdrop="static"
                                                                         class="btn btn-success navbar-right ">
                                                                     <span class="glyphicon glyphicon-plus m-r-sm"></span>
-                                                                    <s:message code="profile.nameEditButton" />
+                                                                    Edit
                                                                 </button>
                                                             </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><s:message code="profile.email" /></td>
+                                                            <td>Email</td>
                                                             <td>
                                                                 <label id="mainEmail">
-                                                                    <c:out value="${user.email}" />
+                                                                    @Model.email
                                                                 </label>
                                                             </td>
                                                             <th>
@@ -63,15 +64,15 @@
                                                                         data-backdrop="static" data-target="#emailMadal"
                                                                         class="btn btn-success navbar-right">
                                                                     <span class="glyphicon glyphicon-plus m-r-sm"></span>
-                                                                    <s:message code="profile.nameEditButton" />
+                                                                    Edit
                                                                 </button>
                                                             </th>
                                                         </tr>
                                                         <tr>
-                                                            <td><s:message code="profile.fullName" /></td>
+                                                            <td>Full Name</td>
                                                             <td>
                                                                 <label id="mainFullName">
-                                                                    <c:out value="${user.fullName}" />
+                                                                    @Model.fullName
                                                                 </label>
                                                             </td>
                                                             <th>
@@ -79,19 +80,19 @@
                                                                         data-toggle="modal" data-target="#fullNameMadal"
                                                                         data-backdrop="static" class="btn btn-success navbar-right">
                                                                     <span class="glyphicon glyphicon-plus m-r-sm"></span>
-                                                                    <s:message code="profile.nameEditButton" />
+                                                                    Edit
                                                                 </button>
                                                             </th>
                                                         </tr>
                                                         <tr>
-                                                            <td><s:message code="profile.password" /></td>
-                                                            <td id="password"></td>
+                                                            <td>Password</td>
+                                                            <td id="password">*********</td>
                                                             <th>
                                                                 <button id="passwordButton" type="button"
                                                                         data-toggle="modal" data-target="#passwordMadal"
                                                                         data-backdrop="static" class="btn btn-success navbar-right">
                                                                     <span class="glyphicon glyphicon-plus m-r-sm"></span>
-                                                                    <s:message code="profile.nameEditButton" />
+                                                                    Edit
                                                                 </button>
                                                             </th>
                                                         </tr>
@@ -106,14 +107,15 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal"></button>
                                                             <h4 class="modal-title">
-                                                                <s:message code="profile.message.modalEditUserName" />
+                                                                Do you want edit user name
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form:form>
+                                                            @using (Html.BeginForm("Profile", "Home", FormMethod.Post))
+                                                            {
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-3 control-label">
-                                                                        <s:message code="profile.userName" />
+                                                                        User Name
                                                                     </label>
                                                                     <div class="col-sm-9">
                                                                         <input class="form-control" type="text" id="userNameInput"
@@ -123,23 +125,20 @@
                                                                 <div class="form-group modal-detail"
                                                                      id="noticeUserNameNotEmpty"></div>
 
-                                                            </form:form>
+                                                            }
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <s:url value="/profile/edit/userName/{userID}/"
-                                                                   var="editUserName">
-                                                                <s:param name="userID" value="${user.id}" />
-                                                            </s:url>
+                                                           
                                                             <a id="url_editUserName" href="${editUserName}"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkUserNameInput()"
                                                                     id="confirmEditUserNameButton" data-dismiss="modal">
-                                                                <s:message code="profile.nameConfirmButton" />
+                                                                Confirm Edit
                                                             </button>
 
                                                             <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">
-                                                                <s:message code="profile.nameCloseButton" />
+                                                                Close
                                                             </button>
                                                         </div>
                                                     </div>
@@ -154,14 +153,14 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal"></button>
                                                             <h4 class="modal-title">
-                                                                <s:message code="profile.message.modalEditEmail" />
+                                                                Do you want edit your email
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form:form>
+                                                            <form>
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-2 control-label">
-                                                                        <s:message code="profile.email" />
+                                                                        Email
                                                                     </label>
                                                                     <div class="col-sm-10">
                                                                         <input class="form-control" type="text" id="emailInput"
@@ -171,21 +170,19 @@
                                                                 </div>
                                                                 <div class="form-group modal-detail"
                                                                      id="noticeEmailNotEmpty"></div>
-                                                            </form:form>
+                                                            </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <s:url value="/profile/edit/email/{userID}/" var="editEmail">
-                                                                <s:param name="userID" value="${user.id}" />
-                                                            </s:url>
-                                                            <a id="url_editEmail" href="${editEmail}"></a>
+                                                            
+                                                            <a id="url_editEmail" href="#"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkEmailInput()" id="confirmEditEmailButton"
                                                                     data-dismiss="modal">
-                                                                <s:message code="profile.nameConfirmButton" />
+                                                                Confirm Edit
                                                             </button>
                                                             <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">
-                                                                <s:message code="profile.nameCloseButton" />
+                                                                Close
                                                             </button>
                                                         </div>
                                                     </div>
@@ -200,14 +197,14 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal"></button>
                                                             <h4 class="modal-title">
-                                                                <s:message code="profile.message.modalEditFullName" />
+                                                                Do you want edit your full name
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form:form>
+                                                            <form>
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-3 control-label">
-                                                                        <s:message code="profile.fullName" />
+                                                                 Full Name
                                                                     </label>
                                                                     <div class="col-sm-9">
                                                                         <input class="form-control" type="text" id="fullNameInput"
@@ -218,22 +215,22 @@
                                                                 <div class="form-group modal-detail"
                                                                      id="noticeFullNameNotEmpty"></div>
 
-                                                            </form:form>
+                                                            </form>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <s:url value="/profile/edit/fullName/{userID}/"
                                                                    var="editFullName">
                                                                 <s:param name="userID" value="${user.id}" />
                                                             </s:url>
-                                                            <a id="url_editFullName" href="${editFullName}"></a>
+                                                            <a id="url_editFullName" href="#"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkFullNameInput()"
                                                                     id="confirmEditFullNameButton" data-dismiss="modal">
-                                                                <s:message code="profile.nameConfirmButton" />
+                                                                Confirm Edit
                                                             </button>
                                                             <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">
-                                                                <s:message code="profile.nameCloseButton" />
+                                                                Close
                                                             </button>
                                                         </div>
                                                     </div>
@@ -247,14 +244,14 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal"></button>
                                                             <h4 class="modal-title">
-                                                                <s:message code="profile.message.modalEditPassword" />
+                                                                Do you want edit your password
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form:form>
+                                                            <form>
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-6 control-label">
-                                                                        <s:message code="profile.newPassword" />
+                                                                        New Password
                                                                     </label>
                                                                     <div class="col-sm-6">
                                                                         <input class="form-control" type="password"
@@ -264,7 +261,7 @@
                                                                 </div>
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-6 control-label">
-                                                                        <s:message code="profile.confirmNewPassword" />
+                                                                        Confirm New Passpword
                                                                     </label>
                                                                     <div class="col-sm-6">
                                                                         <input class="form-control" type="password"
@@ -277,22 +274,19 @@
                                                                      id="noticePasswordNotTheSame">
                                                                     <label class="col-sm-13 control-label"></label>
                                                                 </div>
-                                                            </form:form>
+                                                            </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <s:url value="/profile/edit/passwrod/{userID}/"
-                                                                   var="editPassword">
-                                                                <s:param name="userID" value="${user.id}" />
-                                                            </s:url>
-                                                            <a id="url_editPassword" href="${editPassword}"></a>
+                                                            
+                                                            <a id="url_editPassword" href="#"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkPasswordInput()"
                                                                     id="confirmEditPasswordButton" data-dismiss="modal">
-                                                                <s:message code="profile.nameConfirmButton" />
+                                                                Confirm Edit
                                                             </button>
                                                             <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">
-                                                                <s:message code="profile.nameCloseButton" />
+                                                                Close
                                                             </button>
                                                         </div>
                                                     </div>
@@ -310,7 +304,7 @@
                                                         <div class="modal-body">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                             <label id="stringNotice">
-                                                                <s:message code="profile.message.modalSuccessFullName" />
+                                                                Edit Full Name success ?
                                                             </label>
                                                         </div>
                                                     </div>
@@ -325,7 +319,7 @@
                                                         <div class="modal-body">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                             <label id="stringNotice">
-                                                                <s:message code="profile.message.modalSuccessEmail" />
+                                                            Edit Email success
                                                             </label>
                                                         </div>
                                                     </div>
@@ -340,7 +334,7 @@
                                                         <div class="modal-body">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                             <label id="stringNotice">
-                                                                <s:message code="profile.message.modalSuccessUserName" />
+                                                                Edit User Name success !
                                                             </label>
                                                         </div>
                                                     </div>
@@ -355,7 +349,7 @@
                                                         <div class="modal-body">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                             <label id="stringNotice">
-                                                                <s:message code="profile.message.modalSuccessPassword" />
+                                                                Edit password success !
                                                             </label>
                                                         </div>
                                                     </div>

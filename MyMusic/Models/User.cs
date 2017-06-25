@@ -12,9 +12,7 @@ namespace MyMusic.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
 
-        public int id { get; set; }
-
-        
+        public int id { get; set; }       
 
         public string userName { get; set; }
 
@@ -26,7 +24,7 @@ namespace MyMusic.Models
 
         public DateTime dateRegister { get; set; }
 
-        public string avatar { get; set; }
+        public Image avatar { get; set; }
         
         public virtual HashSet<Comment> listCmt { get; set; }
 
@@ -38,18 +36,10 @@ namespace MyMusic.Models
 
         public User()
         {
-            this.dateRegister = DateTime.Now;
+         dateRegister = DateTime.Now;
         }
 
-        public User(string username, string password, string fullname, string email, string avatar)
-        {
-            this.userName = username;
-            this.password = password;
-            this.fullName = fullname;
-            this.email = email;
-            this.dateRegister = DateTime.Now;
-            this.avatar = avatar;
-        }
+     
         
         public void addListComment(Comment comment)
         {

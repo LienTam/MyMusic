@@ -650,6 +650,7 @@
     <Compile Include="DAO\ModelDAO.cs" />
     <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="DAO\SingerDAO.cs" />
+    <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
