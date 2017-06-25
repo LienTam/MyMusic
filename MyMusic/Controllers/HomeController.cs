@@ -1,5 +1,6 @@
 ﻿using MyMusic.DAO;
 using MyMusic.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace MyMusic.Controllers
@@ -11,14 +12,31 @@ namespace MyMusic.Controllers
         ModelDAO md = new ModelDAO();
         SingerDAO sd = new SingerDAO();
         UserDAO ud = new UserDAO();
+        LikeDAO ld = new LikeDAO();
         public const string VIDEO = "V001";
         // GET: /Home/
         public ActionResult Index(string id)
         {
-
+            Session["user"] = ud.getUser(9);
+            List<Post> listPostRandom = pd.getListPostRandom(id);
+            int sizeListPost = listPostRandom.Count;
+            bool[] likePostArray = new bool[sizeListPost];
+            for (int i = 0;i<sizeListPost;i++)
+            {
+                if (ld.getLikeWithIdUserAndIdPost(i,9)!=null)
+                {
+                    likePostArray[i] = true;
+                }
+                else
+                {
+                    likePostArray[i] = false;
+                }
+            }
+            ViewData["SizeListPost"] = sizeListPost;
             ViewData["TopPost"] = pd.getTopPost(id);
-            ViewData["ListPostRandom"] = pd.getListPostRandom(id);
+            ViewData["ListPostRandom"] = listPostRandom;
             ViewData["ListNewPost"] = pd.getListNewPost(id);
+            ViewData["LikePostArray"] = likePostArray;
             return View();
         }
 
@@ -41,10 +59,46 @@ namespace MyMusic.Controllers
 
 
         public ActionResult Singer(int id)
+
         {
             ViewData["ListSinger"] = gd.getAllSigner();
-            ViewData["PostAudioFromSinger"] = pd.getPostAudioFromSinger(id);
-            ViewData["PostVideoFromSinger"] = pd.getPostVideoFromSinger(id);
+             List<Post> listPostAudioFromSinger = pd.getPostAudioFromSinger(id);
+            List<Post> listPostVideoFromSinger = pd.getPostVideoFromSinger(id);
+            int sizeListPostAudioFromSinger = listPostAudioFromSinger.Count;
+            int sizeListPostVideoFromSinger = listPostVideoFromSinger.Count;
+            bool[] likePostVideoArray = new bool[sizeListPostVideoFromSinger];
+            bool[] likePostAudioArray = new bool[sizeListPostAudioFromSinger];
+            for (int i = 0;i< sizeListPostAudioFromSinger; i++)
+            {
+                if (ld.getLikeWithIdUserAndIdPost(i,9)!=null)
+                {
+                    likePostAudioArray[i] = true;
+                }
+                else
+                {
+                    likePostAudioArray[i] = false;
+                }
+            }
+            for (int i = 0; i < sizeListPostAudioFromSinger; i++)
+            {
+                if (ld.getLikeWithIdUserAndIdPost(i, 9) != null)
+                {
+                    likePostVideoArray[i] = true;
+                }
+                else
+                {
+                    likePostVideoArray[i] = false;
+                }
+            }
+
+            ViewData["SizeListPostAudioFromSinger"] = sizeListPostAudioFromSinger;
+            ViewData["SizeListPostVideoFromSinger"] = sizeListPostVideoFromSinger;
+
+            ViewData["LikePostAudioArray"] = likePostAudioArray;
+            ViewData["LikePostVideoArray"] = likePostVideoArray;
+           
+            ViewData["PostAudioFromSinger"] = listPostAudioFromSinger;
+            ViewData["PostVideoFromSinger"] = listPostVideoFromSinger;
             ViewData["idSinger"] = id;
             return View();
 

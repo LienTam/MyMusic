@@ -138,10 +138,10 @@ namespace MyMusic.DAO
             return db.Posts.Find(idAudio).listComment.Count;
         }
         public List<Post> getListPostRandom(string id)
-        {
+        {            
             if (id.Equals(VIDEO))
             {
-                return db.Posts.Where(p => p is Video).OrderBy(o => Guid.NewGuid()).Take(12).ToList();
+                 return db.Posts.Where(p => p is Video).OrderBy(o => Guid.NewGuid()).Take(12).ToList();
             }
             else
             {

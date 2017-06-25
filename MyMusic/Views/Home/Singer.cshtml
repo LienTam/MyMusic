@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{var idSinger = ViewData["idSinger"];
+    var user = (MyMusic.Models.User)Session["user"];
+    var likePostVideoArrayBoolean = (List<bool>)ViewData["LikePostVideoArray"];
+    var likePostAudioArrayBoolean = (List<bool>)ViewData["LikePostAudioArray"];
+    var sizeListPostAudioFromSinger = (int)ViewData["SizeListPostAudioFromSinger"];
+    var sizeListPostVideoFromSinger = (int)ViewData["SizeListPostVideoFromSinger"];
+    var listPostAudioFromSinger = (List<MyMusic.Models.Post>)ViewData["PostAudioFromSinger"];
+    var listPostvideoFromSinger = (List<MyMusic.Models.Post>)ViewData["PostVideoFromSinger"];
     <section class="hbox stretch">
 
         <aside class="aside bg-light dk" id="sidebar">
@@ -59,22 +66,31 @@
                     </h2>
                     <div class="row row-sm">
 
-
-                        @foreach (var audio in ViewData["PostAudioFromSinger"] as List<MyMusic.Models.Post>)
-                        {
+                        @for(int i = 0; i < sizeListPostAudioFromSinger; i++) { 
+                        
                             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                                 <div class="item">
                                     <div class="pos-rlt">
                                         <div class="item-overlay opacity r r-2x bg-black">
                                             <div class="center text-center m-t-n">
-                                                <a href="@Url.Action("Detail", "Home", new { id = @audio.Id })">
+                                                <a href="@Url.Action("Detail", "Home", new { id = @listPostAudioFromSinger[i].Id })">
                                                     <i class="icon-control-play i-2x"></i>
                                                 </a>
                                             </div>
                                             <div class="bottom padder m-b-sm">
                                                 <a href="#" class="pull-right active" data-toggle="class">
-                                                    <i class="fa fa-heart-o text"></i>
-                                                    <i class="fa fa-heart text-active text-danger"></i>
+                                                    @if (likePostAudioArrayBoolean[i] == true)
+                                                    {
+                                                        <i class="fa fa-heart-o text"></i>
+                                                        <i class="fa fa-heart text-active text-danger"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-heart-o text-active"></i>
+                                                        <i class="fa fa-heart text text-danger"></i>
+                                                    }
+                                                    
+
                                                 </a>
                                                 <a href="#" data-toggle="class">
                                                     <i class="fa fa-plus-circle text"></i> <i class="fa fa-check-circle text-active text-info"></i>
@@ -82,16 +98,16 @@
                                             </div>
                                         </div>
                                         <div class="top">
-                                            <span class="pull-right m-t-sm m-r-sm badge bg-white">@audio.listenning</span>
+                                            <span class="pull-right m-t-sm m-r-sm badge bg-white">@listPostAudioFromSinger[i].listenning</span>
                                         </div>
                                         <a href="#">
-                                            <img src="@audio.image.contentImage" alt="" class="r r-2x img-full">
+                                            <img src="@listPostAudioFromSinger[i].image.contentImage" alt="" class="r r-2x img-full">
                                         </a>
                                     </div>
                                     <div class="padder-v">
-                                        <a href="@Url.Action("Detail", "Home", new { id = @audio.Id })"
-                                           class="text-ellipsis">@audio.nameSong</a> <a href="@Url.Action("Singer", "Home", new { id = @audio.singer.id })"
-                                                                                        class="text-ellipsis text-xs text-muted">@audio.singer.nameSinger</a>
+                                        <a href="@Url.Action("Detail", "Home", new { id = @listPostAudioFromSinger[i].Id })"
+                                           class="text-ellipsis">@listPostAudioFromSinger[i].nameSong</a> <a href="@Url.Action("Singer", "Home", new { id = @listPostAudioFromSinger[i].singer.id })"
+                                                                                        class="text-ellipsis text-xs text-muted">@listPostAudioFromSinger[i].singer.nameSinger</a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
