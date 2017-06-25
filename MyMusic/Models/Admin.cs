@@ -15,11 +15,7 @@ public class Admin : Manager
     public virtual HashSet<Editor> listEditerConfirm { get; set; }
     // list nhung bai dang da dang
 
-    public Admin(string username, string password, string fullname,string email,
-            String avatar): base(username, password, fullname, email, avatar)
-        {
-        
-    }
+  
 
     public Admin()
     {

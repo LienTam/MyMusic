@@ -4,12 +4,26 @@ using System.Web.Helpers;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using MyMusic.DAO;
+
 namespace MyMusic.Areas.Admin.Controllers{
     public class HomeAdminController : Controller
     {
         private UploadDAO uploadDAO = new UploadDAO();
+        private PostDAO pd = new PostDAO();
         // GET: Admin/HomeAdmin
         public ActionResult Admin()
+        {
+            return View();
+        }
+
+        public ActionResult List_music()
+        {
+            ViewData["Video"] = pd.getListPostVideo();
+            ViewData["Audio"] = pd.getListPostAudio();
+            return View();
+        }
+        public ActionResult List_admin()
         {
             return View();
         }

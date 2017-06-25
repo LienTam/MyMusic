@@ -20,11 +20,7 @@ namespace MyMusic.Models
 
         public virtual HashSet<Singer> listSinger { get; set; }
 
-        public Manager(string username, string password, string fullname, string email, string avatar) : base(username, password, fullname, email, avatar)
-        {
-
-        }
-
+      
         public Manager()
         {
         }

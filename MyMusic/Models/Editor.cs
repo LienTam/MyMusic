@@ -12,11 +12,7 @@ namespace MyMusic.Models
 
         public virtual Admin peopleConfirm { get; set; }
 
-        public Editor(string username, string password, string fullname, bool sex, string email, DateTime birthday,
-                string avatar) : base(username, password, fullname, email, avatar)
-        {
-
-        }
+       
 
         public Editor()
         {

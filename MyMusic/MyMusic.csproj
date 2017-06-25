@@ -647,6 +647,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAO\CommentDAO.cs" />
     <Compile Include="DAO\GenreDAO.cs" />
+    <Compile Include="DAO\LikeDAO.cs" />
     <Compile Include="DAO\ModelDAO.cs" />
     <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="DAO\SingerDAO.cs" />
@@ -770,6 +771,8 @@
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\Sesult_search.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\List_admin.cshtml" />
+    <Content Include="Areas\Admin\Views\HomeAdmin\List_music.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

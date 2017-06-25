@@ -21,8 +21,8 @@ namespace MyMusic.Controllers
             ViewData["ListNewPost"] = pd.getListNewPost(id);
             return View();
         }
-      
-        public ActionResult Profile(int id)
+
+        public new ActionResult Profile(int id)
         {
             Member member = ud.getMemberFromId(id);
             return View(member);

@@ -12,9 +12,105 @@ namespace MyMusic.DAO
         ModelContext db = new ModelContext();
         public PostDAO()
         { }
-        public List<Post> getTopPost( string id)
+
+        public List<Post> getListPostVideo()
         {
-            if(id.Equals(VIDEO))
+            return db.Posts.Where(p => p is Video).OrderBy(p => p.datePost).Take(20).ToList();
+        }
+
+
+
+        public bool deletePost(int idPost, int idUser)
+        {
+            try
+            {
+                Post post = db.Posts.Find(idPost);
+                Manager manager = (Manager)db.Users.Where(u => u.id == idUser);
+                manager.listPost.Remove(post);
+                db.Posts.Remove(post);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool editNameSong(int idPost, string nameSong)
+        {
+            try
+            {
+                Post post = db.Posts.Find(idPost);
+                post.nameSong = nameSong;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool editContentPost(int idPost, string contenPost)
+        {
+            try
+            {
+                Post post = db.Posts.Find(idPost);
+                post.contentPost = contenPost;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool editGenreOfPost(int idPost, Genre genre)
+        {
+            try
+            {
+                Post post = db.Posts.Find(idPost);
+                post.genre = genre;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool editSngerOfPost(int idPost, Singer singer)
+        {
+            try
+            {
+                Post post = db.Posts.Find(idPost);
+                post.singer = singer;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+
+        public List<Post> getListPostAudio()
+        {
+            return db.Posts.Where(p => p is Audio).OrderBy(p => p.datePost).Take(20).ToList();
+        }
+
+        public List<Post> getTopPost(string id)
+        {
+            if (id.Equals(VIDEO))
             {
                 return db.Posts.Where(p => p is Video).OrderByDescending(p => p.listenning).Take(5).ToList();
             }
@@ -25,16 +121,16 @@ namespace MyMusic.DAO
 
         }
         public List<Post> getListuggestions(int idGenre, int idSinger, Post post)
-        {            
+        {
             if (post is Audio)
             {
-                return db.Posts.Where(p =>p is Audio &&( p.genre.id == idGenre || p.singer.id == idSinger)).OrderBy(o => Guid.NewGuid()).Take(8).ToList();
+                return db.Posts.Where(p => p is Audio && (p.genre.id == idGenre || p.singer.id == idSinger)).OrderBy(o => Guid.NewGuid()).Take(8).ToList();
             }
             else
             {
                 return db.Posts.Where(p => p is Video && (p.genre.id == idGenre || p.singer.id == idSinger)).OrderBy(o => Guid.NewGuid()).Take(8).ToList();
             }
-            
+
 
         }
         public int getSizeCommentOfPost(int idAudio)
@@ -51,7 +147,7 @@ namespace MyMusic.DAO
             {
                 return db.Posts.Where(p => p is Audio).OrderBy(o => Guid.NewGuid()).Take(12).ToList();
             }
-            
+
         }
         public List<Post> getListNewPost(string id)
         {

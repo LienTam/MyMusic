@@ -17,12 +17,7 @@ namespace MyMusic.Models
         {
         }
 
-        public Member(string username, string password, string fullname, string email, string avatar) 
-            : base(username, password, fullname, email, avatar)
-        {
-
-        }
-
+     
         public void addPostInListFavorite(Post post)
         {
             listPostFavorite.Add(post);
