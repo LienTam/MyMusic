@@ -2,6 +2,7 @@
 using MyMusic.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace MyMusic.Controllers
 {
@@ -13,11 +14,11 @@ namespace MyMusic.Controllers
         SingerDAO sd = new SingerDAO();
         UserDAO ud = new UserDAO();
         LikeDAO ld = new LikeDAO();
+        CommentDAO cd = new CommentDAO();
         public const string VIDEO = "V001";
         // GET: /Home/
         public ActionResult Index(string id)
-        {
-            Session["user"] = ud.getUser(9);
+        {            
             User user = (User)Session["user"];
             List<Post> listPostRandom = pd.getListPostRandom(id);
             int sizeListPost = listPostRandom.Count;
@@ -57,7 +58,10 @@ namespace MyMusic.Controllers
             return View(post);
         }
 
-
+        public void Comment(int idPost, int idUser, string contentComment)
+        {
+            cd.comment(idPost, idUser, contentComment);
+        }
         public ActionResult Singer(int id)
         {
             ViewData["ListSinger"] = gd.getAllSigner();
@@ -96,14 +100,7 @@ namespace MyMusic.Controllers
 
 
         }
-        public ActionResult Login()
-        {
-            return View();
-        }
-        public ActionResult Register()
-        {
-            return View();
-        }
+        
         public ActionResult Genre(int id)
         {
             ViewData["ListGenre"] = gd.getAllGenre();
@@ -152,8 +149,103 @@ namespace MyMusic.Controllers
             ld.likeAndDisLikePost(idUser, idPost);
             
         }
-      }
 
 
-    
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+
+        public ActionResult Login(User user)
+        {
+            var dao = new UserDAO();
+            var result = dao.checkLogin(user.email, user.password);
+
+            if (result == 1)
+            {
+                User u1 = dao.GetByid(user.email);
+                if (u1 is Manager)
+                {
+                    
+                    Session["user"] = u1;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    
+                    Session["user"] = u1;
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Địa chỉ email hoặc mật khẩu chưa đúng!");
+                return View(user);
+            }
+
+
+
+        }
+
+
+        //------------------------------------------------------ đăng ký
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDAO();
+                if (dao.checkEmail(user.email))
+                {
+                    ModelState.AddModelError("", "Địa chỉ email này đã được sử dụng!");
+                    return View(user);
+
+                }
+                else
+                {
+
+                    dao.Insert(user);
+                    return RedirectToAction("/Login");
+                }
+
+            }
+            return View(user);
+
+        }
+
+        //------------------------------------------------------------------- ---------------------------
+
+
+
+
+        //-------------------------------------------------------------------Logout() ---------------------------
+
+        public ActionResult Logout()
+
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
+
+
+
+        //-----------------------------------------------------------------------------------------------
+
+
+
+
+    }
+
+
+
+
 }

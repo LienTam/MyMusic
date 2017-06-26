@@ -16,6 +16,7 @@
 
 </head>
 <body>
+
     <section class="vbox">
         <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
             <div class="navbar-header aside bg-info nav-xs">
@@ -23,7 +24,7 @@
                     <i class="icon-list"></i>
                 </a>
 
-                <a href="@Url.Action("Index", "Home", new { id="A001"})" class="navbar-brand text-lt">
+                <a href="@Url.Action("Index", "Home", new { id = "A001" })" class="navbar-brand text-lt">
                     <i class="icon-earphones"></i> <span class="hidden-nav-xs m-l-sm">
                         My Music
                     </span>
@@ -52,22 +53,70 @@
                     </div>
                 </div>
             </form>
+            @{ MyMusic.Models.User userMain = (MyMusic.Models.User)Session["user"];
+            if (userMain != null)
+            {
+                    <a id="stock" href="#"></a>
+                    <div class="navbar-right ">
+                        <ul class="nav navbar-nav m-n hidden-xs nav-user user">
 
-            <div class="navbar-right ">
-                <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+                            <li class="dropdown">
+                                <a href="#"
+                                   class="dropdown-toggle bg clear" data-toggle="dropdown">
+                                    <label id="userNameViewMenu">@userMain.userName</label> <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                                        <img src="@userMain.avatar.contentImage">
+                                    </span> <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight">
 
-                    <li>
-                        <a href="@Url.Action("Login", "Home")" class="dropdown-toggle bg clear">
-                            Login
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Register", "Home")" class="dropdown-toggle bg clear">
-                            SingUp
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                                    <li>
+                                        <a href="@Url.Action("Profile","Home",new { id=userMain.id})">
+                                            Profile
+                                        </a>
+                                    </li>
+                                    @if (userMain is MyMusic.Models.Manager)
+                                    {
+
+                                        <li><a href="@Url.Action("Admin","HomeAdmin")">Admin Page</a></li>
+                                    }
+
+                                    <li>
+                                        <a href="#">
+                                            Hepl
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        <a href="@Url.Action("Logout", "Home")">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                }
+                else
+                {
+                    <div class="navbar-right ">
+                        <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+
+                            <li>
+                                <a href="@Url.Action("Login", "Home")" class="dropdown-toggle bg clear">
+                                    Login
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Register", "Home")" class="dropdown-toggle bg clear">
+                                    SingUp
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }}
         </header>
         <section>
             <section class="hbox stretch">
@@ -82,18 +131,18 @@
                                     <ul class="nav bg clearfix">
 
                                         <li>
-                                            <a href="@Url.Action("Index", "Home", new { id="V001"})">
+                                            <a href="@Url.Action("Index", "Home", new { id = "V001" })">
                                                 <i class="icon-social-youtube icon text-primary"></i> <span class="font-bold">Video</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="@Url.Action("Genre", "Home", new { id=-1})">
+                                            <a href="@Url.Action("Genre", "Home", new { id = -1 })">
                                                 <i class="icon-music-tone-alt icon text-info"></i> <span class="font-bold">Genre</span>
                                             </a>
                                         </li>
 
                                         <li>
-                                            <a href="@Url.Action("Singer", "Home", new { id=-1})">
+                                            <a href="@Url.Action("Singer", "Home", new { id = -1 })">
                                                 <i class="icon-users icon text-primary"></i> <span class="font-bold">Singer</span>
                                             </a>
                                         </li>
