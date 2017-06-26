@@ -18,25 +18,24 @@ namespace MyMusic.Controllers
         public ActionResult Index(string id)
         {
             Session["user"] = ud.getUser(9);
+            User user = (User)Session["user"];
             List<Post> listPostRandom = pd.getListPostRandom(id);
             int sizeListPost = listPostRandom.Count;
-            bool[] likePostArray = new bool[sizeListPost];
-            for (int i = 0;i<sizeListPost;i++)
+            if (user != null)
             {
-                if (ld.getLikeWithIdUserAndIdPost(i,9)!=null)
-                {
-                    likePostArray[i] = true;
+                bool[] likePostArray = new bool[sizeListPost];
+                for (int i = 0; i < sizeListPost; i++)
+                {                    
+                        likePostArray[i] = ld.getLikeWithIdUserAndIdPost( user.id, listPostRandom[i].Id);
+                    
                 }
-                else
-                {
-                    likePostArray[i] = false;
-                }
+                ViewData["LikePostArray"] = likePostArray;
             }
             ViewData["SizeListPost"] = sizeListPost;
             ViewData["TopPost"] = pd.getTopPost(id);
             ViewData["ListPostRandom"] = listPostRandom;
             ViewData["ListNewPost"] = pd.getListNewPost(id);
-            ViewData["LikePostArray"] = likePostArray;
+            
             return View();
         }
 
@@ -51,6 +50,7 @@ namespace MyMusic.Controllers
 
         public ActionResult Detail(int id)
         {
+            pd.listening(id);
             Post post = pd.getPostFromId(id);
             ViewData["Suggestions"] = pd.getListuggestions(post.genre.id, post.singer.id, post);
             ViewData["sizeComment"] = pd.getSizeCommentOfPost(id);
@@ -59,44 +59,35 @@ namespace MyMusic.Controllers
 
 
         public ActionResult Singer(int id)
-
         {
             ViewData["ListSinger"] = gd.getAllSigner();
              List<Post> listPostAudioFromSinger = pd.getPostAudioFromSinger(id);
             List<Post> listPostVideoFromSinger = pd.getPostVideoFromSinger(id);
             int sizeListPostAudioFromSinger = listPostAudioFromSinger.Count;
             int sizeListPostVideoFromSinger = listPostVideoFromSinger.Count;
-            bool[] likePostVideoArray = new bool[sizeListPostVideoFromSinger];
-            bool[] likePostAudioArray = new bool[sizeListPostAudioFromSinger];
-            for (int i = 0;i< sizeListPostAudioFromSinger; i++)
+            User user =(User) Session["user"];
+            if (user != null)
             {
-                if (ld.getLikeWithIdUserAndIdPost(i,9)!=null)
+                bool[] likePostVideoArray = new bool[sizeListPostVideoFromSinger];
+                bool[] likePostAudioArray = new bool[sizeListPostAudioFromSinger];
+                for (int i = 0; i < sizeListPostAudioFromSinger; i++)
                 {
-                    likePostAudioArray[i] = true;
+                    
+                        likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost( user.id,listPostAudioFromSinger[i].Id);
+                    
                 }
-                else
+                for (int i = 0; i < sizeListPostVideoFromSinger; i++)
                 {
-                    likePostAudioArray[i] = false;
+                        likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromSinger[i].Id);                 
                 }
-            }
-            for (int i = 0; i < sizeListPostAudioFromSinger; i++)
-            {
-                if (ld.getLikeWithIdUserAndIdPost(i, 9) != null)
-                {
-                    likePostVideoArray[i] = true;
-                }
-                else
-                {
-                    likePostVideoArray[i] = false;
-                }
-            }
 
+                ViewData["LikePostAudioArray"] = likePostAudioArray;
+                ViewData["LikePostVideoArray"] = likePostVideoArray;
+
+            }
             ViewData["SizeListPostAudioFromSinger"] = sizeListPostAudioFromSinger;
             ViewData["SizeListPostVideoFromSinger"] = sizeListPostVideoFromSinger;
 
-            ViewData["LikePostAudioArray"] = likePostAudioArray;
-            ViewData["LikePostVideoArray"] = likePostVideoArray;
-           
             ViewData["PostAudioFromSinger"] = listPostAudioFromSinger;
             ViewData["PostVideoFromSinger"] = listPostVideoFromSinger;
             ViewData["idSinger"] = id;
@@ -116,8 +107,34 @@ namespace MyMusic.Controllers
         public ActionResult Genre(int id)
         {
             ViewData["ListGenre"] = gd.getAllGenre();
-            ViewData["PostAudioFromGenre"] = pd.getPostAudioFromGenre(id);
-            ViewData["PostVideoFromGenre"] = pd.getPostVideoFromGenre(id);
+            List<Post> listPostAudioFromGenre = pd.getPostAudioFromSinger(id);
+            List<Post> listPostVideoFromGenre = pd.getPostVideoFromSinger(id);
+            int sizeListPostAudioFromGenre = listPostAudioFromGenre.Count;
+            int sizeListPostVideoFromGenre = listPostVideoFromGenre.Count;
+            User user = (User)Session["user"];
+            if (user != null)
+            {
+                bool[] likePostVideoArray = new bool[sizeListPostVideoFromGenre];
+                bool[] likePostAudioArray = new bool[sizeListPostAudioFromGenre];
+                for (int i = 0; i < sizeListPostAudioFromGenre; i++)
+                {
+                        likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost(user.id,listPostAudioFromGenre[i].Id);
+                    
+                }
+                for (int i = 0; i < sizeListPostVideoFromGenre; i++)
+                {
+                        likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromGenre[i].Id);
+                    
+                }
+                ViewData["LikePostAudioArray"] = likePostAudioArray;
+                ViewData["LikePostVideoArray"] = likePostVideoArray;
+
+            }
+            ViewData["SizeListPostAudioFromGenre"] = sizeListPostAudioFromGenre;
+            ViewData["SizeListPostVideoFromGenre"] = sizeListPostVideoFromGenre;
+                        
+            ViewData["PostAudioFromGenre"] = listPostAudioFromGenre;
+            ViewData["PostVideoFromGenre"] = listPostVideoFromGenre;
             ViewData["idGenre"] = id;
             return View();
 
@@ -130,6 +147,13 @@ namespace MyMusic.Controllers
         {
             return View();
         }
+        public void Likes(int idPost, int idUser)
+        {
+            ld.likeAndDisLikePost(idUser, idPost);
+            
+        }
+      }
 
-    }
+
+    
 }

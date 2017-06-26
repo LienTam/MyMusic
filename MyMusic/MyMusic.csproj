@@ -442,6 +442,7 @@
     <Content Include="Content\js\easypie\jquery.easypiechart.min.js" />
     <Content Include="Content\js\echart\echarts-all.js" />
     <Content Include="Content\js\echart\green.js" />
+    <Content Include="Content\js\like.js" />
     <Content Include="Content\js\editDetailUser.js" />
     <Content Include="Content\js\editor\bootstrap-wysiwyg.js" />
     <Content Include="Content\js\editor\external\google-code-prettify\lang-apollo.js" />
@@ -574,8 +575,6 @@
     <Content Include="Content\less\lessc.inc.php" />
     <Content Include="Content\less\readme.txt" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\upload12523880_237272929957332_9152104338545498982_n.jpg" />
-    <Content Include="Content\upload12718106_241297686223288_4536888346574795666_n.jpg" />
     <Content Include="Content\upload\12063681_237275419957083_3817741643221800154_n.jpg" />
     <Content Include="Content\upload\12096624_237272206624071_3866257525234128222_n.jpg" />
     <Content Include="Content\upload\12523880_237272929957332_9152104338545498982_n.jpg" />
@@ -783,6 +782,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\test\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

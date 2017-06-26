@@ -12,13 +12,19 @@ namespace MyMusic.DAO
         ModelContext db = new ModelContext();
         public PostDAO()
         { }
+        public int listening(int idPost)
+        {            
+            Post post = db.Posts.Find(idPost);
+            post.listenning = post.listenning + 1;
+            db.SaveChanges();
+            return db.Posts.Find(idPost).listenning;
+            
 
+        }
         public List<Post> getListPostVideo()
         {
             return db.Posts.Where(p => p is Video).OrderBy(p => p.datePost).Take(20).ToList();
-        }
-
-
+        }        
 
         public bool deletePost(int idPost, int idUser)
         {

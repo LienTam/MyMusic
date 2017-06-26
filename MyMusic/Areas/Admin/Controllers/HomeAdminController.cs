@@ -40,7 +40,7 @@ namespace MyMusic.Areas.Admin.Controllers{
             if (fileMusic != null && fileImage != null)
             {
                 WebImage img = new WebImage(fileImage.InputStream);
-                if (img.Width > 1000)
+                if (img.Height >1000 ||img.Width > 1000)
                     img.Resize(1000, 1000);              
 
                 string contenImage = Path.GetFileName(fileImage.FileName);
