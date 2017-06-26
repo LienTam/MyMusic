@@ -147,7 +147,7 @@ namespace MyMusic.Controllers
         {
             return View();
         }
-        public void Likes(int idPost, int idUser)
+        public void Likes( int idUser, int idPost)
         {
             ld.likeAndDisLikePost(idUser, idPost);
             

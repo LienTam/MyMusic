@@ -11,7 +11,27 @@ namespace MyMusic.DAO
         public const string VIDEO = "V001";
         ModelContext db = new ModelContext();
         public PostDAO()
+
         { }
+        
+        public bool deletePost(int idPost, int idUser)
+        {
+            try {
+                Post post = db.Posts.Find(idPost);
+                Manager manager = post.ownPost;
+                manager.listPost.Remove(post);                               
+                Favorite favorite = post.isFavorite;
+                favorite.listPostFavorite.Remove(post);
+                db.Posts.Remove(post);
+                db.SaveChanges();
+                return true;
+
+            } catch (Exception)
+            {
+                return false;
+            }
+            
+        }
         public int listening(int idPost)
         {            
             Post post = db.Posts.Find(idPost);
@@ -26,7 +46,7 @@ namespace MyMusic.DAO
             return db.Posts.Where(p => p is Video).OrderBy(p => p.datePost).Take(20).ToList();
         }        
 
-        public bool deletePost(int idPost, int idUser)
+        public bool deletePosta(int idPost, int idUser)
         {
             try
             {

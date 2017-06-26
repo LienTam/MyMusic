@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="app">
 <head>
     <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.css")"
@@ -15,7 +13,7 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/css/app.css")" type="text/css" />
     <link rel="stylesheet" href="@Url.Content("~/Content/css/abc.css")" type="text/css" />
     <meta charset="utf-8" />
-    
+
 </head>
 <body>
     <section class="vbox">
@@ -24,7 +22,7 @@
                 <a class="btn btn-link visible-xs">
                     <i class="icon-list"></i>
                 </a>
-                
+
                 <a href="@Url.Action("Index", "Home", new { id="A001"})" class="navbar-brand text-lt">
                     <i class="icon-earphones"></i> <span class="hidden-nav-xs m-l-sm">
                         My Music
@@ -54,22 +52,22 @@
                     </div>
                 </div>
             </form>
-            
-                    <div class="navbar-right ">
-                        <ul class="nav navbar-nav m-n hidden-xs nav-user user">
 
-                            <li>
-                                 <a href="@Url.Action("Login", "Home")" class="dropdown-toggle bg clear">
-                                    Login
-                                </a>
-                            </li>
-                            <li>
-                                 <a href="@Url.Action("Register", "Home")" class="dropdown-toggle bg clear">
-                                    SingUp
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="navbar-right ">
+                <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+
+                    <li>
+                        <a href="@Url.Action("Login", "Home")" class="dropdown-toggle bg clear">
+                            Login
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Register", "Home")" class="dropdown-toggle bg clear">
+                            SingUp
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </header>
         <section>
             <section class="hbox stretch">
@@ -93,21 +91,21 @@
                                                 <i class="icon-music-tone-alt icon text-info"></i> <span class="font-bold">Genre</span>
                                             </a>
                                         </li>
-                                        
+
                                         <li>
                                             <a href="@Url.Action("Singer", "Home", new { id=-1})">
                                                 <i class="icon-users icon text-primary"></i> <span class="font-bold">Singer</span>
                                             </a>
                                         </li>
 
-                                        
-                                            
-                                            <li>
-                                                <a href="@Url.Action("Favorite", "Home")">
-                                                    <i class="icon-list icon text-info-dker"></i> <span class="font-bold">Favorite</span>
-                                                </a>
-                                            </li>                                      
-                                                                   
+
+
+                                        <li>
+                                            <a href="@Url.Action("Favorite", "Home")">
+                                                <i class="icon-list icon text-info-dker"></i> <span class="font-bold">Favorite</span>
+                                            </a>
+                                        </li>
+
                                         <li class="m-b hidden-nav-xs"></li>
                                     </ul>
                                 </nav>

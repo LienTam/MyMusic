@@ -24,9 +24,9 @@ namespace MyMusic
             new { controller = "Home", action = "Detail", id = UrlParameter.Optional }  // Parameter defaults
         );
             routes.MapRoute(
-           "Like",                                              // Route name
-           "{controller}/{action}/{idPost}/{idUser}",                           // URL with parameters
-           new { controller = "Home", action = "Like", idPost = UrlParameter.Optional, idUser=UrlParameter.Optional }  // Parameter defaults
+           "Likes",                                              // Route name
+           "{controller}/{action}/{idUser}/{idPost}",                           // URL with parameters
+           new { controller = "Home", action = "Likes", idUser=UrlParameter.Optional ,idPost = UrlParameter.Optional }  // Parameter defaults
 
        );
         }

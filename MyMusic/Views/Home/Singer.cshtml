@@ -81,8 +81,8 @@
                                                 @if (user != null)
                                                 {
                                                     <div class="bottom padder m-b-sm">
-                                                        <a href="@Url.Action("Likes","Home", new { idPost = listPostAudioFromSinger[i].Id, idUser =user.id})" class="pull-right active" id="myLink"></a>
-                                                        <a href="#" class="pull-right active" data-toggle="class" onclick="like()">
+                                                        <a href="@Url.Action("Likes","Home", new { idPost = listPostAudioFromSinger[i].Id, idUser =user.id})" class="pull-right active" id="myLink_@listPostAudioFromSinger[i].Id"></a>
+                                                        <a href="#" class="pull-right active" data-toggle="class" onclick="like(@listPostAudioFromSinger[i].Id)">
                                                             @if (likePostAudioArrayBoolean[i] == true)
                                                             {
                                                                 <i class="fa fa-heart-o text"></i>
@@ -156,8 +156,8 @@
                                                 @if (user != null)
                                                 {
                                                     <div class="bottom padder m-b-sm">
-                                                        <a href="@Url.Action("Likes","Home", new { idPost = listPostvideoFromSinger[i].Id, idUser =user.id})" class="pull-right active" id="myLink"></a>
-                                                        <a href="#" class="pull-right active" data-toggle="class">
+                                                        <a href="@Url.Action("Likes","Home", new { idPost = listPostvideoFromSinger[i].Id, idUser =user.id})" class="pull-right active" id="myLink_@listPostvideoFromSinger[i].Id"></a>
+                                                        <a href="#" class="pull-right active" data-toggle="class" onclick="like(@listPostvideoFromSinger[i].Id)">
                                                             @if (likePostVideoArrayBoolean[i] == true)
                                                             {
                                                                 <i class="fa fa-heart-o text"></i>

@@ -442,6 +442,7 @@
     <Content Include="Content\js\easypie\jquery.easypiechart.min.js" />
     <Content Include="Content\js\echart\echarts-all.js" />
     <Content Include="Content\js\echart\green.js" />
+    <Content Include="Content\js\editPost.js" />
     <Content Include="Content\js\like.js" />
     <Content Include="Content\js\editDetailUser.js" />
     <Content Include="Content\js\editor\bootstrap-wysiwyg.js" />
@@ -639,10 +640,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\AdminDAO\UploadDAO.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Context\ModelContext.cs" />
+    <Compile Include="Controllers\HomeAdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAO\CommentDAO.cs" />
     <Compile Include="DAO\GenreDAO.cs" />
@@ -650,6 +649,7 @@
     <Compile Include="DAO\ModelDAO.cs" />
     <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="DAO\SingerDAO.cs" />
+    <Compile Include="DAO\UploadDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -677,11 +677,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\Admin.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\Upload.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css.map" />
@@ -770,8 +765,12 @@
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\Sesult_search.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\List_admin.cshtml" />
-    <Content Include="Areas\Admin\Views\HomeAdmin\List_music.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\HomeAdmin\Admin.cshtml" />
+    <Content Include="Views\HomeAdmin\List_admin.cshtml" />
+    <Content Include="Views\HomeAdmin\List_music.cshtml" />
+    <Content Include="Views\HomeAdmin\Upload.cshtml" />
+    <Content Include="Views\HomeAdmin\EditPost.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -781,7 +780,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\test\" />
   </ItemGroup>
   <PropertyGroup>
