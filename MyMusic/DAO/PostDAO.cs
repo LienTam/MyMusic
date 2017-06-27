@@ -43,7 +43,7 @@ namespace MyMusic.DAO
         }
         public List<Post> getListPostVideo()
         {
-            return db.Posts.Where(p => p is Video).OrderBy(p => p.datePost).Take(20).ToList();
+            return db.Posts.Where(p => p is Video).OrderByDescending(p => p.Id).Take(20).ToList();
         }        
 
         public bool deletePosta(int idPost, int idUser)
@@ -131,7 +131,7 @@ namespace MyMusic.DAO
 
         public List<Post> getListPostAudio()
         {
-            return db.Posts.Where(p => p is Audio).OrderBy(p => p.datePost).Take(20).ToList();
+            return db.Posts.Where(p => p is Audio).OrderByDescending(p => p.Id).Take(20).ToList();
         }
 
         public List<Post> getTopPost(string id)

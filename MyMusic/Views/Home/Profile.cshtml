@@ -2,7 +2,7 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model MyMusic.Models.Member
+@model MyMusic.Models.User
 <section id="content" onload="disableAllEditButton()">
     <section id="content">
         <section class="vbox" id="bjax-el">
@@ -111,8 +111,7 @@
                                                             </h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            @using (Html.BeginForm("Profile", "Home", FormMethod.Post))
-                                                            {
+                                                            <form>
                                                                 <div class="form-group modal-detail">
                                                                     <label class="col-sm-3 control-label">
                                                                         User Name
@@ -125,11 +124,11 @@
                                                                 <div class="form-group modal-detail"
                                                                      id="noticeUserNameNotEmpty"></div>
 
-                                                            }
+                                                            </form>
                                                         </div>
                                                         <div class="modal-footer">
                                                            
-                                                            <a id="url_editUserName" href="${editUserName}"></a>
+                                                            <a id="url_editUserName" href="@Url.Action("EditUserName","Home",new { idUse= Model.id})"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkUserNameInput()"
                                                                     id="confirmEditUserNameButton" data-dismiss="modal">
@@ -174,7 +173,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             
-                                                            <a id="url_editEmail" href="#"></a>
+                                                            <a id="url_editEmail" href="@Url.Action("EditEmail","Home",new { idUser= Model.id})"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkEmailInput()" id="confirmEditEmailButton"
                                                                     data-dismiss="modal">
@@ -218,11 +217,8 @@
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <s:url value="/profile/edit/fullName/{userID}/"
-                                                                   var="editFullName">
-                                                                <s:param name="userID" value="${user.id}" />
-                                                            </s:url>
-                                                            <a id="url_editFullName" href="#"></a>
+                                                            
+                                                            <a id="url_editFullName" href="@Url.Action("EditFullName","Home",new { idUser= Model.id})"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkFullNameInput()"
                                                                     id="confirmEditFullNameButton" data-dismiss="modal">
@@ -278,7 +274,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             
-                                                            <a id="url_editPassword" href="#"></a>
+                                                            <a id="url_editPassword" href="@Url.Action("EditPassword","Home",new { idUser= Model.id})"></a>
                                                             <button type="button" class="btn btn-info"
                                                                     onclick="checkPasswordInput()"
                                                                     id="confirmEditPasswordButton" data-dismiss="modal">
@@ -367,4 +363,4 @@
         </section>
     </section>
 </section>
-<script src="resources/js/editDetailUser.js"></script>
+<script src="@Url.Content("~/Content/js/editDetailUser.js")"></script>

@@ -42,13 +42,26 @@ namespace MyMusic.Controllers
 
         public new ActionResult Profile(int id)
         {
-            Member member = ud.getMemberFromId(id);
-            return View(member);
+            User user = ud.getMemberFromId(id);
+            return View(user);
 
         }
-
-
-
+        public void EditUserName(int idUser, string userName)
+        {
+            ud.editUserName(idUser, userName);
+        }
+        public void EditEmail(int idUser, string email)
+        {
+            ud.editEmail(idUser, email);
+        }
+        public void EditFullName(int idUser, string fullName) {
+            ud.editFullName(idUser, fullName);
+        }
+        public void EditPassword(int idUser, string password)
+        {
+            ud.editPassword(idUser, password);
+        }
+        
         public ActionResult Detail(int id)
         {
             pd.listening(id);
@@ -134,9 +147,6 @@ namespace MyMusic.Controllers
             ViewData["PostVideoFromGenre"] = listPostVideoFromGenre;
             ViewData["idGenre"] = id;
             return View();
-
-
-
         }
 
 

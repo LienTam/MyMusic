@@ -135,7 +135,7 @@ function disableAllEditButton() {
 		$.ajax({
 			type : 'GET',
 			data : {},
-			url : url_editUserName + userNameInput,
+			url : url_editUserName +"&userName="+ userNameInput,
 			success : function() {
 				$("#userNameMainHeader").html(userNameInput);
 				$("#userNameMainTable").html(userNameInput);
@@ -154,7 +154,7 @@ function disableAllEditButton() {
 		$.ajax({
 			type : 'GET',
 			data : {},
-			url : url_editEmail + emailInput,
+			url : url_editEmail +"&email="+ emailInput,
 			success : function() {
 				$("#mainEmail").html(emailInput);
 				setTimeout(function(){$('#myModalEmail').modal({backdrop: false})}, 10);
@@ -169,7 +169,7 @@ function disableAllEditButton() {
 		$.ajax({
 			type : 'GET',
 			data : {},
-			url : url_editFullName + fullNameInput,
+			url : url_editFullName +"&fullName="+ fullNameInput,
 			success : function() {
 				$("#mainFullName").html(fullNameInput);
 				setTimeout(function(){$('#myModalFullName').modal({backdrop: false})}, 10);
@@ -186,9 +186,8 @@ function disableAllEditButton() {
 		$.ajax({
 			type : 'GET',
 			data : {},
-			url : url_editPassword + passwordInput,
-			success : 
-				
+			url : url_editPassword +"&password="+ passwordInput,
+			success : 		
 				
 				
 				function() {
