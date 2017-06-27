@@ -1,0 +1,195 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Admin</title>
+    <link href="@Url.Content("~/Content/css/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/fonts/css/font-awesome.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/css/animate.min.css")" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="@Url.Content("~/Content/css/custom.css")" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="@Url.Content("~/Content/css/maps/jquery-jvectormap-2.0.3.css")" />
+    <link href="@Url.Content("~/Content/css/icheck/flat/green.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/floatexamples.css")" rel="stylesheet"
+          type="text/css" />
+
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title">
+                            <i class="fa fa-paw"></i>
+                            <span>Web Music</span>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu prile quick info -->
+                    <div class="profile">
+                        @{ MyMusic.Models.User userMain = (MyMusic.Models.User)Session["user"];
+                            <div class="profile_pic">
+                                <img src = "@userMain.avatar.contentImage" class="img-circle profile_img">
+
+                            </div>
+                        }
+                        <div class="profile_info">
+                            <span>
+                                Welcome
+                            </span>
+                            <h2></h2>
+                        </div>
+                    </div>
+                    <!-- /menu prile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>&nbsp;</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a>
+                                        <i class="fa fa-home"></i> Home Admin <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu" style="display: none">
+
+                                        <li><a href="@Url.Action("Admin","HomeAdmin")"> Index</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a>
+                                        <i class="fa fa-user"></i> Administration <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu" style="display: none">
+                                        <li>
+                                            <a href="@Url.Action("Admin_profile","HomeAdmin")">
+                                                Admin Profile
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="@Url.Action("List_admin","HomeAdmin")">
+                                                Manager Administration
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a>
+                                        <i class="fa fa-users"></i>Member <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu" style="display: none">
+
+                                        <li>
+                                            <a href="@Url.Action("List_member","HomeAdmin")">
+                                                List Member
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>
+                                        <i class="fa fa-file"></i>Post <span class="fa fa-chevron-down"></span>
+                                    </a>
+                                    <ul class="nav child_menu" style="display: none">
+
+                                        <li>
+                                            <a href="@Url.Action("Upload","HomeAdmin")">
+                                                Upload
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="@Url.Action("List_music","HomeAdmin")">
+                                                List post
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+
+                </div>
+            </div>
+
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <div class="x_content">
+
+                                    <a href="@Url.Action("Logout","Home")">
+                                        <input type="button" class="btn btn-success" value="Logout" />
+                                                                            </a>
+                                </div>
+                            </li>
+                            <li role="presentation" class="dropdown">
+                                <div class="x_content">
+
+                                    <a href="@Url.Action("Index", "Home", new { id="A001"})">
+                                        <input type="button" class="btn btn-success" value="Home" />
+
+
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            @RenderBody()
+        </div>
+
+
+        <div id="custom_notifications" class="custom-notifications dsp_none">
+            <ul class="list-unstyled notifications clearfix"
+                data-tabbed_notifications="notif-group"></ul>
+            <div class="clearfix"></div>
+            <div id="notif-group" class="tabbed_notifications"></div>
+        </div>
+
+    </div>
+
+    <script src="@Url.Content("~/Content/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery1.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/nprogress.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/notify/pnotify.core.js")"></script>
+    <script type="text/javascript"
+            src="@Url.Content("~/Content/js/notify/pnotify.buttons.js")"></script>
+    <script type="text/javascript"
+            src="@Url.Content("~/Content/js/notify/pnotify.nonblock.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Content/js/hello.js")">
+    </script>
+
+
+    <script src="@Url.Content("~/Content/js/progressbar/bootstrap-progressbar.min.js")"></script>
+
+    <!-- icheck -->
+    <script src="@Url.Content("~/Content/js/icheck/icheck.min.js")"></script>
+
+    <!-- pace -->
+    <script src="@Url.Content("~/Content/js/pace/pace.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/custom.js")"></script>
+
+
+</body>
+</html>

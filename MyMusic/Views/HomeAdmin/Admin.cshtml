@@ -1,0 +1,281 @@
+﻿@model IEnumerable<MyMusic.Models.User>
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container body">
+  
+        <div class="right_col" role="main">
+
+            <div class="row tile_count">
+                <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="left"></div>
+                    <div class="right">
+                        <span class="count_top"><i class="fa fa-users"></i>Total User </span>
+                        <div class="count" align="center"> <c:out value="${sizeUser}" /> </div>
+                    </div>
+                </div>
+                <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="left"></div>
+                    <div class="right">
+                        <span class="count_top"><i class="fa fa-file"></i> Total Post </span>
+                        <div class="count green" align="center"> <c:out value="${sizePost}" /> </div>
+                    </div>
+                </div>
+                <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="left"></div>
+                    <div class="right">
+                        <span class="count_top"><i class="fa fa-thumbs-up"></i> Total Like </span>
+                        <div class="count" align="center"> <c:out value="${sizeLike}" /> </div>
+                    </div>
+                </div>
+                <div class="animated flipInY col-md-3 col-sm-4 col-xs-4 tile_stats_count">
+                    <div class="left"></div>
+                    <div class="right">
+                        <span class="count_top">
+                            <span class="glyphicon glyphicon-comment"></span>Total Comment
+                        </span>
+                        <div class="count green" align="center"> <c:out value="${sizeCmt}" /> </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>
+                                <s:message code="homeadmin.statisticslike" /> <small><s:message code="homeadmin.day" /></small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="demo-container" style="height: 280px">
+                                    <div id="like_stats" class="demo-placeholder"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>
+                                <s:message code="homeadmin.statisticsaccess" /> <small><s:message code="homeadmin.day" /></small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="demo-container" style="height: 280px">
+                                    <div id="click_stats" class="demo-placeholder"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</div>
+<!-- flot -->
+<script type="text/javascript">
+    //define chart clolors ( you maybe add more colors if you want or flot will add it automatic )
+    var chartColours = ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'];
+
+    //generate random number for charts
+    randNum = function() {
+      return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+    }
+
+    $(function() {
+      var d1 = [];
+      //var d2 = [];
+
+      //here we generate data for chart
+      for (var i = 0; i < 30; i++) {
+        d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+        //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+      }
+
+      var chartMinDate = d1[0][0]; //first day
+      var chartMaxDate = d1[20][0]; //last day
+
+      var tickSize = [1, "day"];
+      var tformat = "%d/%m/%y";
+
+      //graph options
+      var options = {
+        grid: {
+          show: true,
+          aboveData: true,
+          color: "#3f3f3f",
+          labelMargin: 10,
+          axisMargin: 0,
+          borderWidth: 0,
+          borderColor: null,
+          minBorderMargin: 5,
+          clickable: true,
+          hoverable: true,
+          autoHighlight: true,
+          mouseActiveRadius: 100
+        },
+        series: {
+          lines: {
+            show: true,
+            fill: true,
+            lineWidth: 2,
+            steps: false
+          },
+          points: {
+            show: true,
+            radius: 4.5,
+            symbol: "circle",
+            lineWidth: 3.0
+          }
+        },
+        legend: {
+          position: "ne",
+          margin: [0, -25],
+          noColumns: 0,
+          labelBoxBorderColor: null,
+          labelFormatter: function(label, series) {
+            // just add some space to labes
+            return label + '&nbsp;&nbsp;';
+          },
+          width: 40,
+          height: 1
+        },
+        colors: chartColours,
+        shadowSize: 0,
+        tooltip: true, //activate tooltip
+        tooltipOpts: {
+          content: "%s: %y.0",
+          xDateFormat: "%d/%m",
+          shifts: {
+            x: -30,
+            y: -50
+          },
+          defaultTheme: false
+        },
+        yaxis: {
+          min: 0
+        },
+        xaxis: {
+          mode: "time",
+          minTickSize: tickSize,
+          timeformat: tformat,
+          min: chartMinDate,
+          max: chartMaxDate
+        }
+      };
+      var plot = $.plot($("#like_stats"), [{
+        label: "Nhạc pop",
+        data: d1,
+        lines: {
+          fillColor: "rgba(150, 202, 89, 0.12)"
+        }, //#96CA59 rgba(150, 202, 89, 0.42)
+        points: {
+          fillColor: "#fff"
+        }
+      }], options);
+    });
+
+    $(function() {
+        var d1 = [];
+        //var d2 = [];
+
+        //here we generate data for chart
+        for (var i = 0; i < 30; i++) {
+          d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+          //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+        }
+
+        var chartMinDate = d1[0][0]; //first day
+        var chartMaxDate = d1[20][0]; //last day
+
+        var tickSize = [1, "day"];
+        var tformat = "%d/%m/%y";
+
+        //graph options
+        var options = {
+          grid: {
+            show: true,
+            aboveData: true,
+            color: "#3f3f3f",
+            labelMargin: 10,
+            axisMargin: 0,
+            borderWidth: 0,
+            borderColor: null,
+            minBorderMargin: 5,
+            clickable: true,
+            hoverable: true,
+            autoHighlight: true,
+            mouseActiveRadius: 100
+          },
+          series: {
+            lines: {
+              show: true,
+              fill: true,
+              lineWidth: 2,
+              steps: false
+            },
+            points: {
+              show: true,
+              radius: 4.5,
+              symbol: "circle",
+              lineWidth: 3.0
+            }
+          },
+          legend: {
+            position: "ne",
+            margin: [0, -25],
+            noColumns: 0,
+            labelBoxBorderColor: null,
+            labelFormatter: function(label, series) {
+              // just add some space to labes
+              return label + '&nbsp;&nbsp;';
+            },
+            width: 40,
+            height: 1
+          },
+          colors: chartColours,
+          shadowSize: 0,
+          tooltip: true, //activate tooltip
+          tooltipOpts: {
+            content: "%s: %y.0",
+            xDateFormat: "%d/%m",
+            shifts: {
+              x: -30,
+              y: -50
+            },
+            defaultTheme: false
+          },
+          yaxis: {
+            min: 0
+          },
+          xaxis: {
+            mode: "time",
+            minTickSize: tickSize,
+            timeformat: tformat,
+            min: chartMinDate,
+            max: chartMaxDate
+          }
+        };
+        var plot = $.plot($("#click_stats"), [{
+          label: "Nhạc pop",
+          data: d1,
+          lines: {
+            fillColor: "rgba(150, 202, 89, 0.12)"
+          }, //#96CA59 rgba(150, 202, 89, 0.42)
+          points: {
+            fillColor: "#fff"
+          }
+        }], options);
+      });
+</script>

@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "editPost";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{ var post = (MyMusic.Models.Post)ViewData["Post"];
+
+    <div class="right_col" role="main">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Name Song
+                        <td id="nameSongMainTable">
+                            <label>
+                                @post.nameSong
+                            </label>
+                        </td>
+                        <td id="inputTableNameSong">
+                            <input type="text" id="nameSongInputText" />
+
+                        </td>
+                        <th>
+                            <button id="buttonEditNameSong" type="button" onclick="showInputNameSong()"
+                                    class="btn btn-success navbar-right ">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Edit
+                            </button>
+                            <button id="buttonConfirmNameSong" type="button" onclick="confirmEditNameSong()"
+                                    class="btn btn-success navbar-right ">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Confirm Edit
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Singer</td>
+                        <td>
+                            <label id="mainNameSinger">
+                                @post.singer.nameSinger
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" id="NameSingerInPut" />
+
+                        </td>
+                        <th>
+                            <button type="button" data-toggle="modal"
+                                    onclick="showInputNameSinger()"
+                                    class="btn btn-success navbar-right">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Edit
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Genre</td>
+                        <td>
+                            <label id="mainNameGenre">
+                                @post.genre.nameGenre
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" id="mainNameGenre" />
+
+                        </td>
+                        <th>
+                            <button id="linkEditFullName" type="button"
+                                    onclick="showInputNameGare()" class="btn btn-success navbar-right">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Edit
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Content Music</td>
+
+                        <td>
+                            @if (post is MyMusic.Models.Video)
+                            {
+                                <video width="160" height="35" controls>
+                                    <source src="@post.contentPost" type="video/mp4">
+                                </video>}
+                            else
+                            {
+                                <video width="160" height="35" controls>
+                                    <source src="@post.contentPost" type="video/mp4">
+                                </video>}
+                        </td>
+
+
+                        <td>
+                            <input type="file" id="inputContentPost" />
+                        </td>
+
+                        <th>
+                            <button id="passwordButton" type="button"
+                                    onclick="showInputContentPost()" class="btn btn-success navbar-right">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Edit
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Image</td>
+
+                        <td>
+                            <div class="col-sm-5">
+                                <img src="@post.image.contentImage" style="width:35px;height:35px" />
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <input type="file" id="inputImagePost" />
+                        </td>
+
+                        <th>
+                            <button id="passwordButton" type="button"
+                                    onclick="showInputImagePost()" class="btn btn-success navbar-right">
+                                <span class="glyphicon glyphicon-plus m-r-sm"></span>
+                                Edit
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+}
