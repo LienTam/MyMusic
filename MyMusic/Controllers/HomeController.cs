@@ -18,7 +18,7 @@ namespace MyMusic.Controllers
         public const string VIDEO = "V001";
         // GET: /Home/
         public ActionResult Index(string id)
-        {            
+        {
             User user = (User)Session["user"];
             List<Post> listPostRandom = pd.getListPostRandom(id);
             int sizeListPost = listPostRandom.Count;
@@ -26,9 +26,9 @@ namespace MyMusic.Controllers
             {
                 bool[] likePostArray = new bool[sizeListPost];
                 for (int i = 0; i < sizeListPost; i++)
-                {                    
-                        likePostArray[i] = ld.getLikeWithIdUserAndIdPost( user.id, listPostRandom[i].Id);
-                    
+                {
+                    likePostArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostRandom[i].Id);
+
                 }
                 ViewData["LikePostArray"] = likePostArray;
             }
@@ -36,7 +36,7 @@ namespace MyMusic.Controllers
             ViewData["TopPost"] = pd.getTopPost(id);
             ViewData["ListPostRandom"] = listPostRandom;
             ViewData["ListNewPost"] = pd.getListNewPost(id);
-            
+
             return View();
         }
 
@@ -54,14 +54,15 @@ namespace MyMusic.Controllers
         {
             ud.editEmail(idUser, email);
         }
-        public void EditFullName(int idUser, string fullName) {
+        public void EditFullName(int idUser, string fullName)
+        {
             ud.editFullName(idUser, fullName);
         }
         public void EditPassword(int idUser, string password)
         {
             ud.editPassword(idUser, password);
         }
-        
+
         public ActionResult Detail(int id)
         {
             pd.listening(id);
@@ -78,24 +79,24 @@ namespace MyMusic.Controllers
         public ActionResult Singer(int id)
         {
             ViewData["ListSinger"] = gd.getAllSigner();
-             List<Post> listPostAudioFromSinger = pd.getPostAudioFromSinger(id);
+            List<Post> listPostAudioFromSinger = pd.getPostAudioFromSinger(id);
             List<Post> listPostVideoFromSinger = pd.getPostVideoFromSinger(id);
             int sizeListPostAudioFromSinger = listPostAudioFromSinger.Count;
             int sizeListPostVideoFromSinger = listPostVideoFromSinger.Count;
-            User user =(User) Session["user"];
+            User user = (User)Session["user"];
             if (user != null)
             {
                 bool[] likePostVideoArray = new bool[sizeListPostVideoFromSinger];
                 bool[] likePostAudioArray = new bool[sizeListPostAudioFromSinger];
                 for (int i = 0; i < sizeListPostAudioFromSinger; i++)
                 {
-                    
-                        likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost( user.id,listPostAudioFromSinger[i].Id);
-                    
+
+                    likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostAudioFromSinger[i].Id);
+
                 }
                 for (int i = 0; i < sizeListPostVideoFromSinger; i++)
                 {
-                        likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromSinger[i].Id);                 
+                    likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromSinger[i].Id);
                 }
 
                 ViewData["LikePostAudioArray"] = likePostAudioArray;
@@ -113,7 +114,7 @@ namespace MyMusic.Controllers
 
 
         }
-        
+
         public ActionResult Genre(int id)
         {
             ViewData["ListGenre"] = gd.getAllGenre();
@@ -128,13 +129,13 @@ namespace MyMusic.Controllers
                 bool[] likePostAudioArray = new bool[sizeListPostAudioFromGenre];
                 for (int i = 0; i < sizeListPostAudioFromGenre; i++)
                 {
-                        likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost(user.id,listPostAudioFromGenre[i].Id);
-                    
+                    likePostAudioArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostAudioFromGenre[i].Id);
+
                 }
                 for (int i = 0; i < sizeListPostVideoFromGenre; i++)
                 {
-                        likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromGenre[i].Id);
-                    
+                    likePostVideoArray[i] = ld.getLikeWithIdUserAndIdPost(user.id, listPostVideoFromGenre[i].Id);
+
                 }
                 ViewData["LikePostAudioArray"] = likePostAudioArray;
                 ViewData["LikePostVideoArray"] = likePostVideoArray;
@@ -142,7 +143,7 @@ namespace MyMusic.Controllers
             }
             ViewData["SizeListPostAudioFromGenre"] = sizeListPostAudioFromGenre;
             ViewData["SizeListPostVideoFromGenre"] = sizeListPostVideoFromGenre;
-                        
+
             ViewData["PostAudioFromGenre"] = listPostAudioFromGenre;
             ViewData["PostVideoFromGenre"] = listPostVideoFromGenre;
             ViewData["idGenre"] = id;
@@ -154,10 +155,10 @@ namespace MyMusic.Controllers
         {
             return View();
         }
-        public void Likes( int idUser, int idPost)
+        public void Likes(int idUser, int idPost)
         {
             ld.likeAndDisLikePost(idUser, idPost);
-            
+
         }
 
 
@@ -177,13 +178,13 @@ namespace MyMusic.Controllers
                 User u1 = dao.GetByid(user.email);
                 if (u1 is Manager)
                 {
-                    
+
                     Session["user"] = u1;
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    
+
                     Session["user"] = u1;
                     return RedirectToAction("Index");
                 }
@@ -210,23 +211,26 @@ namespace MyMusic.Controllers
         public ActionResult Register(User user)
         {
 
-            if (ModelState.IsValid)
-            {
-                var dao = new UserDAO();
-                if (dao.checkEmail(user.email))
+            
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Địa chỉ email này đã được sử dụng!");
-                    return View(user);
+                    var dao = new UserDAO();
+                    if (dao.checkEmail(user.email))
+                    {
+                        ModelState.AddModelError("", "Địa chỉ email này đã được sử dụng!");
+                        return View(user);
 
-                }
-                else
-                {
+                    }
+                    else
+                    {
 
-                    dao.Insert(user);
-                    return RedirectToAction("/Login");
-                }
+                        dao.Insert(user);
+                        return RedirectToAction("Login");
+                    }
 
             }
+            
+            
             return View(user);
 
         }

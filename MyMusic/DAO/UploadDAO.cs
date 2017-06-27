@@ -22,7 +22,7 @@ namespace MyMusic.DAO
         }
         public List<Genre> listNameGenre()
         {
-            
+
             return db.Genres.ToList();
         }
 
@@ -42,31 +42,38 @@ namespace MyMusic.DAO
                     Image img = new Image();
                     img.contentImage = fileImage;
                     db.Images.Add(img);
+                    db.SaveChanges();
+                    Image test = db.Images.Where(i => i.contentImage.Equals(img.contentImage)).First();
+                    post.image = test;
                     db.Posts.Add(post);
                     db.SaveChanges();
                 }
-                else { 
-                Audio post = new Audio();
-                post.contentPost = fileMusic;
-                post.nameSong = nameSong;
-                var singerSave = db.Singers.Find(singer);
-                var genreSave = db.Genres.Find(genre);
-                post.genre = genreSave;
-                post.singer = singerSave;
-                Image img = new Image();
-                img.contentImage = fileImage;
-                db.Images.Add(img);
-                db.Posts.Add(post);
-                db.SaveChanges();
-            }
+                else
+                {
+                    Audio post = new Audio();
+                    post.contentPost = fileMusic;
+                    post.nameSong = nameSong;
+                    var singerSave = db.Singers.Find(singer);
+                    var genreSave = db.Genres.Find(genre);
+                    post.genre = genreSave;
+                    post.singer = singerSave;
+                    Image img = new Image();
+                    img.contentImage = fileImage;
+                    db.Images.Add(img);
+                    db.SaveChanges();
+                    Image test = db.Images.Where(i=>i.contentImage.Equals(img.contentImage)).First();
+                    post.image = test;
+                    db.Posts.Add(post);
+                    db.SaveChanges();
+                }
             }
             catch (Exception)
             {
-                throw new Exception("query fail -----------");            
+                throw new Exception("query fail -----------");
 
             }
-            
-            return true;         
+
+            return true;
         }
 
         public static bool checkFile(string st, string name)
@@ -82,12 +89,12 @@ namespace MyMusic.DAO
             Manager manager = null;
             try
             {
-               
-                manager = (Manager) mc.Users.Find(email);
+
+                manager = (Manager)mc.Users.Find(email);
             }
-            catch (Exception )
+            catch (Exception)
             {
-               
+
                 throw new Exception("query fail");
 
             }
@@ -104,13 +111,13 @@ namespace MyMusic.DAO
 
         public Genre findGenre(string nameGenre)
         {
-            
+
 
             Genre genre = null;
             try
             {
-                
-                genre = (Genre) db.Genres.Find(nameGenre);
+
+                genre = (Genre)db.Genres.Find(nameGenre);
             }
             catch (Exception)
             {
@@ -131,7 +138,7 @@ namespace MyMusic.DAO
         public Singer findSinger(string nameSinger)
         {
 
-            
+
 
             Singer singer = null;
             try

@@ -134,7 +134,7 @@ function disableAllEditButton() {
 		var url_editUserName = $('#url_editUserName').attr("href");
 		$.ajax({
 			type : 'GET',
-			data : {},
+			
 			url : url_editUserName +"&userName="+ userNameInput,
 			success : function() {
 				$("#userNameMainHeader").html(userNameInput);
